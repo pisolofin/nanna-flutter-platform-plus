@@ -1,6 +1,7 @@
 import 'dart:ui';
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:nanna_platform/nanna_platform.dart';
 
 import '../models/platform_target.dart';
@@ -38,27 +39,27 @@ Widget _buildIosButton(
     return _LiquidGlassButton(
       onPressed: widget.onPressed,
       isNextGen: version == PlatformVersion.ios27,
-      child: widget.child,
+      child    : widget.child,
     );
   }
 
   // iOS 18: Modern Cupertino with responsive curves
   if (version == PlatformVersion.ios18) {
     return CupertinoButton(
-      onPressed: widget.onPressed,
-      padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 12),
+      onPressed   : widget.onPressed,
+      padding     : const EdgeInsets.symmetric(horizontal: 22, vertical: 12),
       borderRadius: BorderRadius.circular(16),
-      color: CupertinoColors.activeBlue,
-      child: widget.child,
+      color       : CupertinoColors.activeBlue,
+      child       : widget.child,
     );
   }
 
   // iOS 15 - 17: Classic Cupertino button
   return CupertinoButton.filled(
-    onPressed: widget.onPressed,
-    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 11),
+    onPressed   : widget.onPressed,
+    padding     : const EdgeInsets.symmetric(horizontal: 20, vertical: 11),
     borderRadius: BorderRadius.circular(10),
-    child: widget.child,
+    child       : widget.child,
   );
 }
 
@@ -70,8 +71,8 @@ Widget _buildMacOsButton(
   // macOS 26 & 27 (Tahoe / Golden Gate): Liquid Glass Desktop
   if (version == PlatformVersion.macos26 || version == PlatformVersion.macos27) {
     return _LiquidGlassDesktopButton(
-      onPressed: widget.onPressed,
-      label: widget.child,
+      onPressed   : widget.onPressed,
+      label       : widget.child,
       isGoldenGate: version == PlatformVersion.macos27,
     );
   }
@@ -79,16 +80,16 @@ Widget _buildMacOsButton(
   // macOS 12-15: Standard macOS push button
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 4),
-    child: OutlinedButton(
+    child  : OutlinedButton(
       onPressed: widget.onPressed,
-      style: OutlinedButton.styleFrom(
+      style    : OutlinedButton.styleFrom(
         foregroundColor: Colors.black87,
         backgroundColor: const Color(0xFFF2F2F7),
-        side: const BorderSide(color: Color(0xFFC7C7CC), width: 0.8),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        textStyle: const TextStyle(
-          fontSize: 13,
+        side           : const BorderSide(color: Color(0xFFC7C7CC), width: 0.8),
+        shape          : RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+        padding        : const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        textStyle      : const TextStyle(
+          fontSize  : 13,
           fontWeight: FontWeight.w500,
           fontFamily: '.AppleSystemUIFont',
         ),
@@ -107,17 +108,17 @@ Widget _buildIpadosButton(
     return _LiquidGlassButton(
       onPressed: widget.onPressed,
       isNextGen: true,
-      padding: const EdgeInsets.symmetric(horizontal: 26, vertical: 14),
-      child: widget.child,
+      padding  : const EdgeInsets.symmetric(horizontal: 26, vertical: 14),
+      child    : widget.child,
     );
   }
 
   return CupertinoButton(
-    onPressed: widget.onPressed,
-    padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+    onPressed   : widget.onPressed,
+    padding     : const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
     borderRadius: BorderRadius.circular(14),
-    color: CupertinoColors.systemIndigo,
-    child: widget.child,
+    color       : CupertinoColors.systemIndigo,
+    child       : widget.child,
   );
 }
 
@@ -130,11 +131,11 @@ Widget _buildAndroidButton(
   if (version == PlatformVersion.androidMaterialYou) {
     return FilledButton.tonal(
       onPressed: widget.onPressed,
-      style: FilledButton.styleFrom(
+      style    : FilledButton.styleFrom(
         backgroundColor: const Color(0xFFD0E4FF),
         foregroundColor: const Color(0xFF001D36),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(28)),
-        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+        shape          : RoundedRectangleBorder(borderRadius: BorderRadius.circular(28)),
+        padding        : const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
       ),
       child: widget.child,
     );
@@ -144,11 +145,11 @@ Widget _buildAndroidButton(
   if (version == PlatformVersion.androidM3) {
     return FilledButton(
       onPressed: widget.onPressed,
-      style: FilledButton.styleFrom(
+      style    : FilledButton.styleFrom(
         backgroundColor: const Color(0xFF6750A4),
         foregroundColor: Colors.white,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+        shape          : RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        padding        : const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
       ),
       child: widget.child,
     );
@@ -157,13 +158,13 @@ Widget _buildAndroidButton(
   // Material 2 (Android 11-)
   return ElevatedButton(
     onPressed: widget.onPressed,
-    style: ElevatedButton.styleFrom(
+    style    : ElevatedButton.styleFrom(
       backgroundColor: const Color(0xFF6200EE),
       foregroundColor: Colors.white,
-      elevation: 2,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
-      padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
-      textStyle: const TextStyle(fontWeight: FontWeight.w600, letterSpacing: 1.25),
+      elevation      : 2,
+      shape          : RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+      padding        : const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
+      textStyle      : const TextStyle(fontWeight: FontWeight.w600, letterSpacing: 1.25),
     ),
     child: widget.child,
   );
@@ -197,25 +198,25 @@ class _LiquidGlassButtonState extends State<_LiquidGlassButton> {
         : const Color(0xFF007AFF);
 
     return GestureDetector(
-      onTapDown: (_) => setState(() => _isPressed = true),
-      onTapUp: (_) => setState(() => _isPressed = false),
+      onTapDown  : (_) => setState(() => _isPressed = true),
+      onTapUp    : (_) => setState(() => _isPressed = false),
       onTapCancel: () => setState(() => _isPressed = false),
-      onTap: widget.onPressed,
-      child: AnimatedScale(
-        scale: _isPressed ? 0.96 : 1.0,
+      onTap      : widget.onPressed,
+      child      : AnimatedScale(
+        scale   : _isPressed ? 0.96 : 1.0,
         duration: const Duration(milliseconds: 120),
-        curve: Curves.easeOutCubic,
-        child: ClipRRect(
+        curve   : Curves.easeOutCubic,
+        child   : ClipRRect(
           borderRadius: BorderRadius.circular(26),
-          child: BackdropFilter(
+          child       : BackdropFilter(
             filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
-            child: Container(
-              padding: widget.padding,
+            child : Container(
+              padding   : widget.padding,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(26),
-                gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
+                gradient    : LinearGradient(
+                  begin : Alignment.topLeft,
+                  end   : Alignment.bottomRight,
                   colors: [
                     tintColor.withValues(alpha: _isPressed ? 0.85 : 0.75),
                     tintColor.withValues(alpha: _isPressed ? 0.65 : 0.55),
@@ -227,17 +228,17 @@ class _LiquidGlassButtonState extends State<_LiquidGlassButton> {
                 ),
                 boxShadow: [
                   BoxShadow(
-                    color: tintColor.withValues(alpha: 0.35),
+                    color     : tintColor.withValues(alpha: 0.35),
                     blurRadius: 18,
-                    offset: const Offset(0, 6),
+                    offset    : const Offset(0, 6),
                   ),
                 ],
               ),
               child: DefaultTextStyle(
                 style: const TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w600,
-                  fontSize: 16,
+                  color        : Colors.white,
+                  fontWeight   : FontWeight.w600,
+                  fontSize     : 16,
                   letterSpacing: -0.3,
                 ),
                 child: widget.child,
@@ -266,14 +267,14 @@ class _LiquidGlassDesktopButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
-      child: BackdropFilter(
+      child       : BackdropFilter(
         filter: ImageFilter.blur(sigmaX: 14, sigmaY: 14),
-        child: Container(
+        child : Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
+            gradient    : LinearGradient(
+              begin : Alignment.topCenter,
+              end   : Alignment.bottomCenter,
               colors: [
                 Colors.white.withValues(alpha: 0.35),
                 Colors.white.withValues(alpha: 0.15),
@@ -287,16 +288,16 @@ class _LiquidGlassDesktopButton extends StatelessWidget {
             ),
           ),
           child: CupertinoButton(
-            padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 8),
-            onPressed: onPressed,
+            padding    : const EdgeInsets.symmetric(horizontal: 18, vertical: 8),
+            onPressed  : onPressed,
             minimumSize: const Size(0, 32),
-            child: DefaultTextStyle(
+            child      : DefaultTextStyle(
               style: TextStyle(
                 color: isGoldenGate
                     ? const Color(0xFF007AFF)
                     : const Color(0xFF1D1D1F),
                 fontWeight: FontWeight.w600,
-                fontSize: 13,
+                fontSize  : 13,
               ),
               child: label,
             ),

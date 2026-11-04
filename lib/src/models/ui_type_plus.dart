@@ -28,21 +28,23 @@ class NaUiTypePlus {
 
   /// Registers custom UI types with nanna_platform service.
   static void registerUiTypes() {
-    if (_registered) return;
+    if (_registered) {
+      return;
+    }
 
     _versioned = naPlatformServiceRegisterUiType(
       styleId: 'nanna_plus',
-      uiType: 'versioned',
+      uiType : 'versioned',
     );
 
     _cupertinoVersioned = naPlatformServiceRegisterUiType(
       styleId: 'nanna_plus',
-      uiType: 'cupertino_versioned',
+      uiType : 'cupertino_versioned',
     );
 
     _materialVersioned = naPlatformServiceRegisterUiType(
       styleId: 'nanna_plus',
-      uiType: 'material_versioned',
+      uiType : 'material_versioned',
     );
 
     _registered = true;

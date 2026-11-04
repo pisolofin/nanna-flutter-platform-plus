@@ -2,9 +2,9 @@ import 'package:nanna_platform/nanna_platform.dart';
 
 import 'models/ui_type_plus.dart';
 import 'widgets_plus/button_plus.dart';
-import 'widgets_plus/bottom_navigation_bar_plus.dart';
 import 'widgets_plus/switch_plus.dart';
 import 'widgets_plus/app_bar_plus.dart';
+import 'widgets_plus/bottom_navigation_bar_plus.dart';
 
 /// Entrypoint to initialize `nanna_platform_plus` and register all versioned builders.
 class NannaPlatformPlus {
@@ -12,7 +12,9 @@ class NannaPlatformPlus {
 
   /// Registers OS-version-aware UI types and widget builders.
   static void initialize() {
-    if (_initialized) return;
+    if (_initialized) {
+      return;
+    }
 
     NaUiTypePlus.registerUiTypes();
 

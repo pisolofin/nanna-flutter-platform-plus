@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+
 import '../models/platform_target.dart';
 
 /// Controller that manages the active platform and version for adaptive rendering.
@@ -24,12 +25,14 @@ class PlatformVersionController extends ChangeNotifier {
 
   /// Sets the active platform family, automatically picking its recommended latest version.
   void setPlatformFamily(PlatformFamily family, [PlatformVersion? version]) {
-    if (_currentFamily == family && version == null) return;
+    if (_currentFamily == family && version == null) {
+      return;
+    }
     _currentFamily = family;
     final List<PlatformVersion> available = PlatformVersion.forFamily(family);
     if (version != null && available.contains(version)) {
       _currentVersion = version;
-    } else {
+    }else {
       _currentVersion = available.last;
     }
     notifyListeners();
@@ -37,7 +40,9 @@ class PlatformVersionController extends ChangeNotifier {
 
   /// Sets the specific operating system version.
   void setPlatformVersion(PlatformVersion version) {
-    if (_currentVersion == version) return;
+    if (_currentVersion == version) {
+      return;
+    }
     _currentFamily = version.family;
     _currentVersion = version;
     notifyListeners();
@@ -55,4 +60,3 @@ class PlatformVersionController extends ChangeNotifier {
   /// Helper to check if current version uses Material Design (Android).
   bool get isAndroidMaterial => _currentFamily == PlatformFamily.android;
 }
-

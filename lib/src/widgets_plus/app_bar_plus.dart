@@ -1,6 +1,7 @@
 import 'dart:ui';
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:nanna_platform/nanna_platform.dart';
 
 import '../models/platform_target.dart';
@@ -24,12 +25,12 @@ void registerNaAppBarPlus(NaUiType uiType) {
             return _LiquidGlassAppBar(widget: widget, version: version);
           }
           return CupertinoNavigationBar(
-            middle: widget.title,
-            leading: widget.leading,
+            middle  : widget.title,
+            leading : widget.leading,
             trailing: widget.actions != null && widget.actions!.isNotEmpty
                 ? Row(
                     mainAxisSize: MainAxisSize.min,
-                    children: widget.actions!,
+                    children    : widget.actions!,
                   )
                 : null,
             backgroundColor: widget.backgroundColor ??
@@ -38,10 +39,10 @@ void registerNaAppBarPlus(NaUiType uiType) {
 
         case PlatformFamily.macOS:
           return Container(
-            height: 48,
-            padding: const EdgeInsets.symmetric(horizontal: 16),
+            height    : 48,
+            padding   : const EdgeInsets.symmetric(horizontal: 16),
             decoration: BoxDecoration(
-              color: const Color(0xFFF6F6F6),
+              color : const Color(0xFFF6F6F6),
               border: Border(
                 bottom: BorderSide(
                   color: Colors.black.withValues(alpha: 0.1),
@@ -56,9 +57,9 @@ void registerNaAppBarPlus(NaUiType uiType) {
                   child: Center(
                     child: DefaultTextStyle(
                       style: const TextStyle(
-                        fontSize: 13,
+                        fontSize  : 13,
                         fontWeight: FontWeight.w600,
-                        color: Colors.black87,
+                        color     : Colors.black87,
                       ),
                       child: widget.title ?? const SizedBox.shrink(),
                     ),
@@ -72,31 +73,31 @@ void registerNaAppBarPlus(NaUiType uiType) {
         case PlatformFamily.android:
           if (version == PlatformVersion.androidMaterialYou) {
             return AppBar(
-              title: widget.title,
-              leading: widget.leading,
-              actions: widget.actions,
+              title          : widget.title,
+              leading        : widget.leading,
+              actions        : widget.actions,
               backgroundColor: const Color(0xFFF0F4F9),
-              elevation: 0,
-              centerTitle: true,
+              elevation      : 0,
+              centerTitle    : true,
             );
           }
           if (version == PlatformVersion.androidM3) {
             return AppBar(
-              title: widget.title,
-              leading: widget.leading,
-              actions: widget.actions,
+              title          : widget.title,
+              leading        : widget.leading,
+              actions        : widget.actions,
               backgroundColor: const Color(0xFFF7F2FA),
-              elevation: 0,
-              centerTitle: true,
+              elevation      : 0,
+              centerTitle    : true,
             );
           }
           return AppBar(
-            title: widget.title,
-            leading: widget.leading,
-            actions: widget.actions,
+            title          : widget.title,
+            leading        : widget.leading,
+            actions        : widget.actions,
             backgroundColor: const Color(0xFF6200EE),
             foregroundColor: Colors.white,
-            elevation: 4,
+            elevation      : 4,
           );
       }
     },
@@ -117,9 +118,9 @@ class _LiquidGlassAppBar extends StatelessWidget {
     return ClipRect(
       child: BackdropFilter(
         filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
-        child: Container(
+        child : Container(
           decoration: BoxDecoration(
-            color: Colors.white.withValues(alpha: 0.65),
+            color : Colors.white.withValues(alpha: 0.65),
             border: Border(
               bottom: BorderSide(
                 color: Colors.white.withValues(alpha: 0.6),
@@ -129,16 +130,16 @@ class _LiquidGlassAppBar extends StatelessWidget {
           ),
           child: SafeArea(
             bottom: false,
-            child: SizedBox(
+            child : SizedBox(
               height: 48,
-              child: NavigationToolbar(
+              child : NavigationToolbar(
                 leading: widget.leading,
-                middle: widget.title != null
+                middle : widget.title != null
                     ? DefaultTextStyle(
                         style: const TextStyle(
-                          color: Color(0xFF1D1D1F),
-                          fontWeight: FontWeight.w600,
-                          fontSize: 17,
+                          color        : Color(0xFF1D1D1F),
+                          fontWeight   : FontWeight.w600,
+                          fontSize     : 17,
                           letterSpacing: -0.4,
                         ),
                         child: widget.title!,
@@ -147,7 +148,7 @@ class _LiquidGlassAppBar extends StatelessWidget {
                 trailing: widget.actions != null && widget.actions!.isNotEmpty
                     ? Row(
                         mainAxisSize: MainAxisSize.min,
-                        children: widget.actions!,
+                        children    : widget.actions!,
                       )
                     : null,
                 centerMiddle: true,
@@ -159,4 +160,3 @@ class _LiquidGlassAppBar extends StatelessWidget {
     );
   }
 }
-
