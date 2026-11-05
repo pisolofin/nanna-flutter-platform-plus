@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:nanna_platform/nanna_platform.dart';
 
-import '../models/platform_target.dart';
-import '../services/platform_version_controller.dart';
+import '../models/platform-target.dart';
+import '../services/platform-version-controller.dart';
 
 /// Registers the version-aware widget builder for [NaButton].
 void registerNaButtonPlus(NaUiType uiType) {

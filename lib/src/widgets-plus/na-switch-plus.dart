@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:nanna_platform/nanna_platform.dart';
 
-import '../models/platform_target.dart';
-import '../services/platform_version_controller.dart';
+import '../models/platform-target.dart';
+import '../services/platform-version-controller.dart';
 
 /// Registers the version-aware widget builder for [NaSwitch].
 void registerNaSwitchPlus(NaUiType uiType) {
@@ -90,9 +90,9 @@ class _Ios26PillSwitch extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const double trackWidth = 58.0;
+    const double trackWidth  = 58.0;
     const double trackHeight = 32.0;
-    const double thumbWidth = 36.0; // Elongated pill thumb!
+    const double thumbWidth  = 36.0; // Elongated pill thumb!
     const double thumbHeight = 28.0;
 
     final Color trackColor = value

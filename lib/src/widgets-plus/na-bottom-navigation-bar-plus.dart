@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:nanna_platform/nanna_platform.dart';
 
-import '../models/platform_target.dart';
-import '../services/platform_version_controller.dart';
+import '../models/platform-target.dart';
+import '../services/platform-version-controller.dart';
 
 /// Registers the version-aware widget builder for [NaBottomNavigationBar].
 void registerNaBottomNavigationBarPlus(NaUiType uiType) {
@@ -115,7 +115,7 @@ Widget _buildMacOsBottomBar(
           child : Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children         : List.generate(widget.items.length, (index) {
-              final item = widget.items[index];
+              final item       = widget.items[index];
               final isSelected = index == widget.currentIndex;
               return Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 4),
@@ -187,7 +187,7 @@ Widget _buildMacOsBottomBar(
     child: Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children         : List.generate(widget.items.length, (index) {
-        final item = widget.items[index];
+        final item       = widget.items[index];
         final isSelected = index == widget.currentIndex;
         return TextButton(
           onPressed: () => widget.onTap?.call(index),
@@ -336,7 +336,7 @@ class _LiquidGlassFloatingBar extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children         : List.generate(items.length, (index) {
-                final item = items[index];
+                final item       = items[index];
                 final isSelected = index == currentIndex;
 
                 return GestureDetector(

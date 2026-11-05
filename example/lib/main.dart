@@ -1,6 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:nanna_platform/nanna_platform.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:nanna_platform_plus/nanna_platform_plus.dart';
 
 void main() {
@@ -12,7 +11,7 @@ void main() {
 }
 
 class PlatformPlusExampleApp extends StatefulWidget {
-  const PlatformPlusExampleApp({super.key});
+  const PlatformPlusExampleApp({ super.key });
 
   @override
   State<PlatformPlusExampleApp> createState() => _PlatformPlusExampleAppState();
@@ -46,20 +45,20 @@ class _PlatformPlusExampleAppState extends State<PlatformPlusExampleApp> {
         _controller.isAndroidMaterial ? NaUiType.material : NaUiType.cupertino,
       ],
       child: NaApp(
-        title: 'Nanna Platform Plus Demo',
+        title                     : 'Nanna Platform Plus Demo',
         debugShowCheckedModeBanner: false,
-        optionsBuilder: (BuildContext context, NaUiType uiType) {
+        optionsBuilder            : (BuildContext context, NaUiType uiType) {
           if (_controller.isAndroidMaterial) {
             return NaAppOptionsMaterial(
               theme: ThemeData(
                 useMaterial3: _controller.currentVersion != PlatformVersion.androidM2,
-                colorScheme: _controller.currentVersion == PlatformVersion.androidMaterialYou
+                colorScheme : _controller.currentVersion == PlatformVersion.androidMaterialYou
                     ? ColorScheme.fromSeed(
-                        seedColor: const Color(0xFF006495),
+                        seedColor : const Color(0xFF006495),
                         brightness: Brightness.light,
                       )
                     : ColorScheme.fromSeed(
-                        seedColor: const Color(0xFF6750A4),
+                        seedColor : const Color(0xFF6750A4),
                         brightness: Brightness.light,
                       ),
               ),
@@ -68,7 +67,7 @@ class _PlatformPlusExampleAppState extends State<PlatformPlusExampleApp> {
 
           return NaAppOptionsCupertino(
             theme: const CupertinoThemeData(
-              brightness: Brightness.light,
+              brightness  : Brightness.light,
               primaryColor: CupertinoColors.activeBlue,
             ),
           );
@@ -80,7 +79,7 @@ class _PlatformPlusExampleAppState extends State<PlatformPlusExampleApp> {
 }
 
 class ExampleShowcasePage extends StatefulWidget {
-  const ExampleShowcasePage({super.key});
+  const ExampleShowcasePage({ super.key });
 
   @override
   State<ExampleShowcasePage> createState() => _ExampleShowcasePageState();
@@ -90,8 +89,8 @@ class _ExampleShowcasePageState extends State<ExampleShowcasePage> {
   final PlatformVersionController _controller = PlatformVersionController.instance;
 
   int _currentNavIndex = 0;
-  bool _switchValue = true;
-  int _clickCount = 0;
+  bool _switchValue    = true;
+  int _clickCount      = 0;
 
   @override
   void initState() {
@@ -113,8 +112,8 @@ class _ExampleShowcasePageState extends State<ExampleShowcasePage> {
 
   @override
   Widget build(BuildContext context) {
-    final PlatformFamily currentFamily = _controller.currentFamily;
-    final PlatformVersion currentVersion = _controller.currentVersion;
+    final PlatformFamily currentFamily            = _controller.currentFamily;
+    final PlatformVersion currentVersion          = _controller.currentVersion;
     final List<PlatformVersion> availableVersions =
         PlatformVersion.forFamily(currentFamily);
 
@@ -127,16 +126,16 @@ class _ExampleShowcasePageState extends State<ExampleShowcasePage> {
       ),
       body: SafeArea(
         child: Material(
-          type: MaterialType.transparency,
+          type : MaterialType.transparency,
           child: SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
-            child: Column(
+            padding           : const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+            child             : Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
+            children          : [
               // 1. Platform Selector (iOS / macOS / iPadOS / Android)
               _buildSectionHeader(
-                icon: Icons.devices,
-                title: '1. Seleziona Piattaforma',
+                icon    : Icons.devices,
+                title   : '1. Seleziona Piattaforma',
                 subtitle: 'Scegli la famiglia di sistema operativo',
               ),
               const SizedBox(height: 8),
@@ -146,8 +145,8 @@ class _ExampleShowcasePageState extends State<ExampleShowcasePage> {
 
               // 2. Version Selector
               _buildSectionHeader(
-                icon: Icons.history,
-                title: '2. Seleziona Versione OS',
+                icon    : Icons.history,
+                title   : '2. Seleziona Versione OS',
                 subtitle: 'Evoluzione delle linee guida e del design system',
               ),
               const SizedBox(height: 8),
@@ -171,24 +170,24 @@ class _ExampleShowcasePageState extends State<ExampleShowcasePage> {
     ),
       bottomNavigationBar: NaBottomNavigationBar(
         currentIndex: _currentNavIndex,
-        onTap: (int index) {
+        onTap       : (int index) {
           setState(() => _currentNavIndex = index);
         },
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home_outlined),
+            icon      : Icon(Icons.home_outlined),
             activeIcon: Icon(Icons.home),
-            label: 'Home',
+            label     : 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.explore_outlined),
+            icon      : Icon(Icons.explore_outlined),
             activeIcon: Icon(Icons.explore),
-            label: 'Esplora',
+            label     : 'Esplora',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person_outline),
+            icon      : Icon(Icons.person_outline),
             activeIcon: Icon(Icons.person),
-            label: 'Profilo',
+            label     : 'Profilo',
           ),
         ],
       ),
@@ -202,7 +201,7 @@ class _ExampleShowcasePageState extends State<ExampleShowcasePage> {
   }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
+      children          : [
         Row(
           children: [
             Icon(icon, size: 18, color: const Color(0xFF007AFF)),
@@ -210,9 +209,9 @@ class _ExampleShowcasePageState extends State<ExampleShowcasePage> {
             Text(
               title,
               style: const TextStyle(
-                fontSize: 15,
+                fontSize  : 15,
                 fontWeight: FontWeight.w700,
-                color: Color(0xFF1C1C1E),
+                color     : Color(0xFF1C1C1E),
               ),
             ),
           ],
@@ -228,50 +227,50 @@ class _ExampleShowcasePageState extends State<ExampleShowcasePage> {
 
   Widget _buildPlatformSelector(PlatformFamily selectedFamily) {
     return Wrap(
-      spacing: 8,
+      spacing   : 8,
       runSpacing: 8,
-      children: PlatformFamily.values.map((family) {
+      children  : PlatformFamily.values.map((family) {
         final isSelected = family == selectedFamily;
         return GestureDetector(
           behavior: HitTestBehavior.opaque,
-          onTap: () {
+          onTap   : () {
             setState(() {
               _controller.setPlatformFamily(family);
             });
           },
           child: AnimatedContainer(
-            duration: const Duration(milliseconds: 180),
-            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+            duration  : const Duration(milliseconds: 180),
+            padding   : const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
             decoration: BoxDecoration(
               color: isSelected
                   ? const Color(0xFF007AFF)
                   : const Color(0xFFE5E5EA),
               borderRadius: BorderRadius.circular(12),
-              boxShadow: isSelected
+              boxShadow   : isSelected
                   ? [
                       BoxShadow(
-                        color: const Color(0xFF007AFF).withValues(alpha: 0.35),
+                        color     : const Color(0xFF007AFF).withValues(alpha: 0.35),
                         blurRadius: 8,
-                        offset: const Offset(0, 3),
+                        offset    : const Offset(0, 3),
                       ),
                     ]
                   : null,
             ),
             child: Row(
               mainAxisSize: MainAxisSize.min,
-              children: [
+              children    : [
                 Icon(
                   _getPlatformIcon(family),
-                  size: 16,
+                  size : 16,
                   color: isSelected ? Colors.white : Colors.black87,
                 ),
                 const SizedBox(width: 6),
                 Text(
                   family.label,
                   style: TextStyle(
-                    color: isSelected ? Colors.white : Colors.black87,
+                    color     : isSelected ? Colors.white : Colors.black87,
                     fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
-                    fontSize: 13,
+                    fontSize  : 13,
                   ),
                 ),
               ],
@@ -288,23 +287,23 @@ class _ExampleShowcasePageState extends State<ExampleShowcasePage> {
   ) {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
-      child: Row(
+      child          : Row(
         children: versions.map((version) {
-          final isSelected = version == selectedVersion;
+          final isSelected    = version == selectedVersion;
           final isLiquidGlass = version.designLanguage.contains('Liquid Glass');
 
           return Padding(
             padding: const EdgeInsets.only(right: 8.0),
-            child: GestureDetector(
+            child  : GestureDetector(
               behavior: HitTestBehavior.opaque,
-              onTap: () {
+              onTap   : () {
                 setState(() {
                   _controller.setPlatformVersion(version);
                 });
               },
               child: AnimatedContainer(
-                duration: const Duration(milliseconds: 180),
-                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                duration  : const Duration(milliseconds: 180),
+                padding   : const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
                 decoration: BoxDecoration(
                   color: isSelected
                       ? (isLiquidGlass
@@ -312,7 +311,7 @@ class _ExampleShowcasePageState extends State<ExampleShowcasePage> {
                           : const Color(0xFF1D1D1F))
                       : const Color(0xFFF2F2F7),
                   borderRadius: BorderRadius.circular(10),
-                  border: Border.all(
+                  border      : Border.all(
                     color: isLiquidGlass && !isSelected
                         ? const Color(0xFF0A84FF).withValues(alpha: 0.4)
                         : Colors.black.withValues(alpha: 0.05),
@@ -325,14 +324,14 @@ class _ExampleShowcasePageState extends State<ExampleShowcasePage> {
                                 ? const Color(0xFF0A84FF).withValues(alpha: 0.35)
                                 : Colors.black.withValues(alpha: 0.2),
                             blurRadius: 8,
-                            offset: const Offset(0, 2),
+                            offset    : const Offset(0, 2),
                           ),
                         ]
                       : null,
                 ),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
-                  children: [
+                  children    : [
                     if (isLiquidGlass) ...[
                       const Text('✨ ', style: TextStyle(fontSize: 12)),
                     ],
@@ -341,7 +340,7 @@ class _ExampleShowcasePageState extends State<ExampleShowcasePage> {
                           ? '${version.displayName} (${version.codename})'
                           : version.displayName,
                       style: TextStyle(
-                        color: isSelected ? Colors.white : Colors.black87,
+                        color     : isSelected ? Colors.white : Colors.black87,
                         fontWeight:
                             isSelected ? FontWeight.w600 : FontWeight.normal,
                         fontSize: 13,
@@ -361,11 +360,11 @@ class _ExampleShowcasePageState extends State<ExampleShowcasePage> {
     final bool isLiquidGlass = version.designLanguage.contains('Liquid Glass');
 
     return Container(
-      padding: const EdgeInsets.all(20),
+      padding   : const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color       : Colors.white,
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(
+        border      : Border.all(
           color: isLiquidGlass
               ? const Color(0xFF0A84FF).withValues(alpha: 0.35)
               : Colors.black.withValues(alpha: 0.08),
@@ -377,16 +376,16 @@ class _ExampleShowcasePageState extends State<ExampleShowcasePage> {
                 ? const Color(0xFF0A84FF).withValues(alpha: 0.12)
                 : Colors.black.withValues(alpha: 0.05),
             blurRadius: 18,
-            offset: const Offset(0, 6),
+            offset    : const Offset(0, 6),
           ),
         ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
+        children          : [
           // Header Badge
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+            padding   : const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
             decoration: BoxDecoration(
               color: isLiquidGlass
                   ? const Color(0xFF0A84FF).withValues(alpha: 0.12)
@@ -395,10 +394,10 @@ class _ExampleShowcasePageState extends State<ExampleShowcasePage> {
             ),
             child: Row(
               mainAxisSize: MainAxisSize.min,
-              children: [
+              children    : [
                 Icon(
                   isLiquidGlass ? Icons.auto_awesome : Icons.palette_outlined,
-                  size: 14,
+                  size : 14,
                   color: isLiquidGlass
                       ? const Color(0xFF0A84FF)
                       : Colors.black87,
@@ -407,9 +406,9 @@ class _ExampleShowcasePageState extends State<ExampleShowcasePage> {
                 Text(
                   version.designLanguage,
                   style: TextStyle(
-                    fontSize: 12,
+                    fontSize  : 12,
                     fontWeight: FontWeight.w600,
-                    color: isLiquidGlass
+                    color     : isLiquidGlass
                         ? const Color(0xFF0A84FF)
                         : Colors.black87,
                   ),
@@ -424,9 +423,9 @@ class _ExampleShowcasePageState extends State<ExampleShowcasePage> {
           const Text(
             'Pulsante Adattivo (NaButton)',
             style: TextStyle(
-              fontSize: 13,
+              fontSize  : 13,
               fontWeight: FontWeight.w600,
-              color: Color(0xFF8E8E93),
+              color     : Color(0xFF8E8E93),
             ),
           ),
           const SizedBox(height: 10),
@@ -446,27 +445,27 @@ class _ExampleShowcasePageState extends State<ExampleShowcasePage> {
           const Text(
             'Controllo Switch (NaSwitch)',
             style: TextStyle(
-              fontSize: 13,
+              fontSize  : 13,
               fontWeight: FontWeight.w600,
-              color: Color(0xFF8E8E93),
+              color     : Color(0xFF8E8E93),
             ),
           ),
           const SizedBox(height: 10),
 
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [
+            children         : [
               Text(
                 _switchValue ? 'Attivo' : 'Disattivato',
                 style: const TextStyle(
-                  fontSize: 14,
+                  fontSize  : 14,
                   fontWeight: FontWeight.w500,
-                  color: Color(0xFF1C1C1E),
+                  color     : Color(0xFF1C1C1E),
                 ),
               ),
               const SizedBox(width: 14),
               NaSwitch(
-                value: _switchValue,
+                value    : _switchValue,
                 onChanged: (val) => setState(() => _switchValue = val),
               ),
             ],
@@ -476,21 +475,67 @@ class _ExampleShowcasePageState extends State<ExampleShowcasePage> {
               version == PlatformVersion.ios27) ...[
             const SizedBox(height: 10),
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+              padding   : const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
               decoration: BoxDecoration(
-                color: const Color(0xFF34C759).withValues(alpha: 0.12),
+                color       : const Color(0xFF34C759).withValues(alpha: 0.12),
                 borderRadius: BorderRadius.circular(8),
               ),
               child: const Text(
                 '✨ Levetta allungata a capsula (Liquid Glass)',
                 style: TextStyle(
-                  fontSize: 11,
+                  fontSize  : 11,
                   fontWeight: FontWeight.w500,
-                  color: Color(0xFF248A3D),
+                  color     : Color(0xFF248A3D),
                 ),
               ),
             ),
           ],
+
+          const SizedBox(height: 24),
+          const Divider(height: 1, color: Color(0xFFE5E5EA)),
+          const SizedBox(height: 20),
+
+          // Component 3: NaTextField & NaCard
+          const Text(
+            'Campi Testo e Card (NaCard & NaTextField)',
+            style: TextStyle(
+              fontSize  : 13,
+              fontWeight: FontWeight.w600,
+              color     : Color(0xFF8E8E93),
+            ),
+          ),
+          const SizedBox(height: 12),
+
+          NaCard(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children          : [
+                Row(
+                  children: [
+                    NaCheckbox(
+                      value    : _switchValue,
+                      onChanged: (val) =>
+                          setState(() => _switchValue = val ?? false),
+                    ),
+                    const SizedBox(width: 8),
+                    const Expanded(
+                      child: Text(
+                        'Checkbox con stile adattivo (NaCheckbox)',
+                        style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 12),
+                NaTextField(
+                  optionsBuilder: (context, uiType) =>
+                      NaTextFieldOptionsGeneric(
+                    placeholder: 'Inserisci un testo adattivo...',
+                  ),
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );
@@ -498,15 +543,15 @@ class _ExampleShowcasePageState extends State<ExampleShowcasePage> {
 
   Widget _buildSpecsCard(PlatformVersion version) {
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding   : const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: const Color(0xFFF9F9FB),
+        color       : const Color(0xFFF9F9FB),
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: const Color(0xFFE5E5EA)),
+        border      : Border.all(color: const Color(0xFFE5E5EA)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
+        children          : [
           Row(
             children: [
               const Icon(Icons.info_outline, size: 16, color: Color(0xFF8E8E93)),
@@ -515,8 +560,8 @@ class _ExampleShowcasePageState extends State<ExampleShowcasePage> {
                 'Specifiche Tecniche • ${version.displayName}',
                 style: const TextStyle(
                   fontWeight: FontWeight.w600,
-                  fontSize: 13,
-                  color: Color(0xFF1C1C1E),
+                  fontSize  : 13,
+                  color     : Color(0xFF1C1C1E),
                 ),
               ),
             ],
@@ -541,9 +586,9 @@ class _ExampleShowcasePageState extends State<ExampleShowcasePage> {
   Widget _buildSpecRow(String label, String value) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 3.0),
-      child: Row(
+      child  : Row(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
+        children          : [
           SizedBox(
             width: 140,
             child: Text(
@@ -555,9 +600,9 @@ class _ExampleShowcasePageState extends State<ExampleShowcasePage> {
             child: Text(
               value,
               style: const TextStyle(
-                fontSize: 12,
+                fontSize  : 12,
                 fontWeight: FontWeight.w500,
-                color: Color(0xFF1C1C1E),
+                color     : Color(0xFF1C1C1E),
               ),
             ),
           ),
