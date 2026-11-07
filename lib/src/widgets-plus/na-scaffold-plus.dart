@@ -28,17 +28,23 @@ void registerNaScaffoldPlus(NaUiType uiType) {
                 (version.designLanguage.contains('Liquid Glass')
                     ? const Color(0xFFF0F4F8)
                     : CupertinoColors.systemBackground),
-            child: Stack(
-              children: [
-                widget.body,
-                if (widget.bottomNavigationBar != null)
-                  Positioned(
-                    left  : 0,
-                    right : 0,
-                    bottom: 0,
-                    child : widget.bottomNavigationBar!,
-                  ),
-              ],
+            child: Material(
+              type : MaterialType.transparency,
+              child: widget.bottomNavigationBar == null
+                  ? widget.body
+                  : Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children          : [
+                        // Main body content occupying remaining viewport space
+                        Expanded(
+                          child: widget.body,
+                        ),
+                        // Dedicated bottom navigation bar container preventing content overlap
+                        if (widget.bottomNavigationBar != null) ...[
+                          widget.bottomNavigationBar!,
+                        ],
+                      ],
+                    ),
             ),
           );
 

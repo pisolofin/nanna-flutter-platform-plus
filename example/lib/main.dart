@@ -573,10 +573,16 @@ class _ExampleShowcasePageState extends State<ExampleShowcasePage> {
           _buildSpecRow(
             'Barra di Navigazione',
             version.designLanguage.contains('Liquid Glass')
-                ? 'Dock flottante in vetro traslucido con pill indicator'
+                ? 'Dock flottante in vetro traslucido'
                 : (version.family == PlatformFamily.android
                     ? 'NavigationBar con pill container'
-                    : 'Standard Tab Bar con effetto blur'),
+                    : (version.family == PlatformFamily.macOS
+                        ? 'Desktop Toolbar / Segmented Bar'
+                        : (version == PlatformVersion.ipados18
+                            ? 'Floating Pill Tab Bar tablet'
+                            : (version == PlatformVersion.ios18
+                                ? 'Floating Tab Bar con angoli arrotondati'
+                                : 'Standard Tab Bar con effetto blur')))),
           ),
         ],
       ),

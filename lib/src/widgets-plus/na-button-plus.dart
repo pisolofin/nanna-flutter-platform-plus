@@ -1,6 +1,5 @@
 import 'dart:ui';
 
-import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:nanna_platform/nanna_platform.dart';
 
@@ -35,7 +34,7 @@ Widget _buildIosButton(
   PlatformVersion version,
 ) {
   // iOS 26 & 27: Liquid Glass aesthetic
-  if (version == PlatformVersion.ios26 || version == PlatformVersion.ios27) {
+  if ((version == PlatformVersion.ios26) || (version == PlatformVersion.ios27)) {
     return _LiquidGlassButton(
       onPressed: widget.onPressed,
       isNextGen: version == PlatformVersion.ios27,
@@ -43,14 +42,21 @@ Widget _buildIosButton(
     );
   }
 
-  // iOS 18: Modern Cupertino with responsive curves
+  // iOS 18: Modern Cupertino with responsive curves and guaranteed white text
   if (version == PlatformVersion.ios18) {
     return CupertinoButton(
       onPressed   : widget.onPressed,
       padding     : const EdgeInsets.symmetric(horizontal: 22, vertical: 12),
       borderRadius: BorderRadius.circular(16),
       color       : CupertinoColors.activeBlue,
-      child       : widget.child,
+      child       : DefaultTextStyle.merge(
+        style: const TextStyle(
+          color     : CupertinoColors.white,
+          fontWeight: FontWeight.w600,
+          fontSize  : 16,
+        ),
+        child: widget.child,
+      ),
     );
   }
 
@@ -59,7 +65,14 @@ Widget _buildIosButton(
     onPressed   : widget.onPressed,
     padding     : const EdgeInsets.symmetric(horizontal: 20, vertical: 11),
     borderRadius: BorderRadius.circular(10),
-    child       : widget.child,
+    child       : DefaultTextStyle.merge(
+      style: const TextStyle(
+        color     : CupertinoColors.white,
+        fontWeight: FontWeight.w600,
+        fontSize  : 16,
+      ),
+      child: widget.child,
+    ),
   );
 }
 
@@ -69,7 +82,7 @@ Widget _buildMacOsButton(
   PlatformVersion version,
 ) {
   // macOS 26 & 27 (Tahoe / Golden Gate): Liquid Glass Desktop
-  if (version == PlatformVersion.macos26 || version == PlatformVersion.macos27) {
+  if ((version == PlatformVersion.macos26) || (version == PlatformVersion.macos27)) {
     return _LiquidGlassDesktopButton(
       onPressed   : widget.onPressed,
       label       : widget.child,
@@ -77,25 +90,10 @@ Widget _buildMacOsButton(
     );
   }
 
-  // macOS 12-15: Standard macOS push button
-  return Padding(
-    padding: const EdgeInsets.symmetric(vertical: 4),
-    child  : OutlinedButton(
-      onPressed: widget.onPressed,
-      style    : OutlinedButton.styleFrom(
-        foregroundColor: Colors.black87,
-        backgroundColor: const Color(0xFFF2F2F7),
-        side           : const BorderSide(color: Color(0xFFC7C7CC), width: 0.8),
-        shape          : RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
-        padding        : const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        textStyle      : const TextStyle(
-          fontSize  : 13,
-          fontWeight: FontWeight.w500,
-          fontFamily: '.AppleSystemUIFont',
-        ),
-      ),
-      child: widget.child,
-    ),
+  // macOS 12-15: Desktop push button (pure widget implementation without Material dependency)
+  return _MacOsPushButton(
+    onPressed: widget.onPressed,
+    child    : widget.child,
   );
 }
 
@@ -104,7 +102,7 @@ Widget _buildIpadosButton(
   NaButton widget,
   PlatformVersion version,
 ) {
-  if (version == PlatformVersion.ipados26 || version == PlatformVersion.ipados27) {
+  if ((version == PlatformVersion.ipados26) || (version == PlatformVersion.ipados27)) {
     return _LiquidGlassButton(
       onPressed: widget.onPressed,
       isNextGen: true,
@@ -113,12 +111,20 @@ Widget _buildIpadosButton(
     );
   }
 
+  // iPadOS 15-18: Tablet styled button with guaranteed high-contrast white text
   return CupertinoButton(
     onPressed   : widget.onPressed,
     padding     : const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
-    borderRadius: BorderRadius.circular(14),
+    borderRadius: BorderRadius.circular(version == PlatformVersion.ipados18 ? 16 : 12),
     color       : CupertinoColors.systemIndigo,
-    child       : widget.child,
+    child       : DefaultTextStyle.merge(
+      style: const TextStyle(
+        color     : CupertinoColors.white,
+        fontWeight: FontWeight.w600,
+        fontSize  : 16,
+      ),
+      child: widget.child,
+    ),
   );
 }
 
@@ -129,45 +135,172 @@ Widget _buildAndroidButton(
 ) {
   // Material You (API 34+)
   if (version == PlatformVersion.androidMaterialYou) {
-    return FilledButton.tonal(
-      onPressed: widget.onPressed,
-      style    : FilledButton.styleFrom(
-        backgroundColor: const Color(0xFFD0E4FF),
-        foregroundColor: const Color(0xFF001D36),
-        shape          : RoundedRectangleBorder(borderRadius: BorderRadius.circular(28)),
-        padding        : const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
-      ),
-      child: widget.child,
+    return _AndroidM3Button(
+      onPressed      : widget.onPressed,
+      backgroundColor: const Color(0xFFD0E4FF),
+      foregroundColor: const Color(0xFF001D36),
+      borderRadius   : 28,
+      child          : widget.child,
     );
   }
 
   // Material 3 (API 31-33)
   if (version == PlatformVersion.androidM3) {
-    return FilledButton(
-      onPressed: widget.onPressed,
-      style    : FilledButton.styleFrom(
-        backgroundColor: const Color(0xFF6750A4),
-        foregroundColor: Colors.white,
-        shape          : RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        padding        : const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-      ),
-      child: widget.child,
+    return _AndroidM3Button(
+      onPressed      : widget.onPressed,
+      backgroundColor: const Color(0xFF6750A4),
+      foregroundColor: CupertinoColors.white,
+      borderRadius   : 20,
+      child          : widget.child,
     );
   }
 
   // Material 2 (Android 11-)
-  return ElevatedButton(
+  return _AndroidM2Button(
     onPressed: widget.onPressed,
-    style    : ElevatedButton.styleFrom(
-      backgroundColor: const Color(0xFF6200EE),
-      foregroundColor: Colors.white,
-      elevation      : 2,
-      shape          : RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
-      padding        : const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
-      textStyle      : const TextStyle(fontWeight: FontWeight.w600, letterSpacing: 1.25),
-    ),
-    child: widget.child,
+    child    : widget.child,
   );
+}
+
+/// Custom macOS push button without Material dependency.
+class _MacOsPushButton extends StatefulWidget {
+  final VoidCallback? onPressed;
+  final Widget child;
+
+  const _MacOsPushButton({
+    required this.onPressed,
+    required this.child,
+  });
+
+  @override
+  State<_MacOsPushButton> createState() => _MacOsPushButtonState();
+}
+
+class _MacOsPushButtonState extends State<_MacOsPushButton> {
+  bool _isHovered = false;
+  bool _isPressed = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      onEnter: (_) => setState(() => _isHovered = true),
+      onExit : (_) => setState(() => _isHovered = false),
+      child  : GestureDetector(
+        onTapDown  : (_) => setState(() => _isPressed = true),
+        onTapUp    : (_) => setState(() => _isPressed = false),
+        onTapCancel: () => setState(() => _isPressed = false),
+        onTap      : widget.onPressed,
+        child      : Container(
+          padding   : const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          decoration: BoxDecoration(
+            color: _isPressed
+                ? const Color(0xFFDCDCE0)
+                : (_isHovered ? const Color(0xFFE8E8ED) : const Color(0xFFF2F2F7)),
+            borderRadius: BorderRadius.circular(6),
+            border      : Border.all(
+              color: const Color(0xFFC7C7CC),
+              width: 0.8,
+            ),
+            boxShadow: const [
+              BoxShadow(
+                color     : Color(0x0A000000),
+                blurRadius: 1,
+                offset    : Offset(0, 1),
+              ),
+            ],
+          ),
+          child: DefaultTextStyle.merge(
+            style: const TextStyle(
+              fontSize  : 13,
+              fontWeight: FontWeight.w500,
+              color     : Color(0xFF1D1D1F),
+            ),
+            child: widget.child,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// Android Material 3 styled button.
+class _AndroidM3Button extends StatelessWidget {
+  final VoidCallback? onPressed;
+  final Color backgroundColor;
+  final Color foregroundColor;
+  final double borderRadius;
+  final Widget child;
+
+  const _AndroidM3Button({
+    required this.onPressed,
+    required this.backgroundColor,
+    required this.foregroundColor,
+    required this.borderRadius,
+    required this.child,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onPressed,
+      child: Container(
+        padding   : const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+        decoration: BoxDecoration(
+          color       : backgroundColor,
+          borderRadius: BorderRadius.circular(borderRadius),
+        ),
+        child: DefaultTextStyle.merge(
+          style: TextStyle(
+            color     : foregroundColor,
+            fontWeight: FontWeight.w600,
+            fontSize  : 14,
+          ),
+          child: child,
+        ),
+      ),
+    );
+  }
+}
+
+/// Android Material 2 styled button.
+class _AndroidM2Button extends StatelessWidget {
+  final VoidCallback? onPressed;
+  final Widget child;
+
+  const _AndroidM2Button({
+    required this.onPressed,
+    required this.child,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onPressed,
+      child: Container(
+        padding   : const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
+        decoration: BoxDecoration(
+          color       : const Color(0xFF6200EE),
+          borderRadius: BorderRadius.circular(4),
+          boxShadow   : const [
+            BoxShadow(
+              color     : Color(0x33000000),
+              blurRadius: 4,
+              offset    : Offset(0, 2),
+            ),
+          ],
+        ),
+        child: DefaultTextStyle.merge(
+          style: const TextStyle(
+            color        : CupertinoColors.white,
+            fontWeight   : FontWeight.w600,
+            fontSize     : 14,
+            letterSpacing: 1.1,
+          ),
+          child: child,
+        ),
+      ),
+    );
+  }
 }
 
 /// Custom Liquid Glass button widget for iOS 26/27.
@@ -181,7 +314,7 @@ class _LiquidGlassButton extends StatefulWidget {
     required this.onPressed,
     required this.child,
     this.isNextGen = false,
-    this.padding = const EdgeInsets.symmetric(horizontal: 24, vertical: 13),
+    this.padding   = const EdgeInsets.symmetric(horizontal: 24, vertical: 13),
   });
 
   @override
@@ -223,7 +356,7 @@ class _LiquidGlassButtonState extends State<_LiquidGlassButton> {
                   ],
                 ),
                 border: Border.all(
-                  color: Colors.white.withValues(alpha: 0.45),
+                  color: CupertinoColors.white.withValues(alpha: 0.45),
                   width: 1.2,
                 ),
                 boxShadow: [
@@ -236,7 +369,7 @@ class _LiquidGlassButtonState extends State<_LiquidGlassButton> {
               ),
               child: DefaultTextStyle(
                 style: const TextStyle(
-                  color        : Colors.white,
+                  color        : CupertinoColors.white,
                   fontWeight   : FontWeight.w600,
                   fontSize     : 16,
                   letterSpacing: -0.3,
@@ -276,14 +409,14 @@ class _LiquidGlassDesktopButton extends StatelessWidget {
               begin : Alignment.topCenter,
               end   : Alignment.bottomCenter,
               colors: [
-                Colors.white.withValues(alpha: 0.35),
-                Colors.white.withValues(alpha: 0.15),
+                CupertinoColors.white.withValues(alpha: 0.35),
+                CupertinoColors.white.withValues(alpha: 0.15),
               ],
             ),
             border: Border.all(
               color: isGoldenGate
                   ? const Color(0xFF007AFF).withValues(alpha: 0.5)
-                  : Colors.black.withValues(alpha: 0.15),
+                  : const Color(0x26000000),
               width: 1.0,
             ),
           ),

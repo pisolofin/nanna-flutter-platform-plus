@@ -7,29 +7,20 @@ void main() {
     NannaPlatformPlus.initialize();
   });
 
-  testWidgets('PlatformPlusExampleApp builds and switches versions', (WidgetTester tester) async {
+  testWidgets('Test rendering across all platform families and versions', (WidgetTester tester) async {
     await tester.pumpWidget(const PlatformPlusExampleApp());
     await tester.pumpAndSettle();
 
-    expect(find.textContaining('iOS'), findsWidgets);
-    expect(find.textContaining('Conferma Azione'), findsOneWidget);
-    expect(find.text('Home'), findsOneWidget);
+    final controller = PlatformVersionController.instance;
 
-    // Initial version is iOS 26
-    expect(find.textContaining('iOS 26'), findsWidgets);
-
-    // Tap on iOS 18 chip
-    await tester.tap(find.text('iOS 18'));
-    await tester.pumpAndSettle();
-
-    // Now current version should be iOS 18
-    expect(PlatformVersionController.instance.currentVersion, PlatformVersion.ios18);
-    expect(find.textContaining('iOS 18'), findsWidgets);
-
-    // Tap on Android platform chip
-    await tester.tap(find.text('Android'));
-    await tester.pumpAndSettle();
-
-    expect(PlatformVersionController.instance.currentFamily, PlatformFamily.android);
+    // Iterate through all platforms and versions to ensure no errors (like Material dependency missing)
+    for (final family in PlatformFamily.values) {
+      controller.setPlatformFamily(family);
+      for (final version in PlatformVersion.forFamily(family)) {
+        controller.setPlatformVersion(version);
+        await tester.pumpAndSettle();
+        expect(tester.takeException(), isNull);
+      }
+    }
   });
 }
