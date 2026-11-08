@@ -1,8 +1,9 @@
 import 'dart:ui';
 
-import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/widgets.dart';
 import 'package:nanna_platform/nanna_platform.dart';
+import 'package:flutter/cupertino.dart' show CupertinoColors, CupertinoTextField;
+import 'package:flutter/material.dart' show InputDecoration, OutlineInputBorder, TextField;
 
 import '../models/platform-target.dart';
 import '../services/platform-version-controller.dart';
@@ -15,13 +16,20 @@ void registerNaTextFieldPlus(NaUiType uiType) {
       final PlatformVersion version =
           PlatformVersionController.instance.currentVersion;
 
+      final NaTextFieldOptions? options =
+          widget.optionsBuilder?.call(context, uiType);
+      final NaTextFieldOptionsGeneric? genericOptions = options is NaTextFieldOptionsGeneric
+        ? options
+        : null
+      ;
+
       switch (version.family) {
         case PlatformFamily.iOS:
         case PlatformFamily.iPadOS:
-          if (version == PlatformVersion.ios26 ||
-              version == PlatformVersion.ios27 ||
-              version == PlatformVersion.ipados26 ||
-              version == PlatformVersion.ipados27) {
+          if ((version == PlatformVersion.ios26) ||
+              (version == PlatformVersion.ios27) ||
+              (version == PlatformVersion.ipados26) ||
+              (version == PlatformVersion.ipados27)) {
             // Liquid Glass text field
             return ClipRRect(
               borderRadius: BorderRadius.circular(16),
@@ -29,10 +37,10 @@ void registerNaTextFieldPlus(NaUiType uiType) {
                 filter: ImageFilter.blur(sigmaX: 18, sigmaY: 18),
                 child : Container(
                   decoration: BoxDecoration(
-                    color       : Colors.white.withValues(alpha: 0.5),
+                    color       : const Color(0x80FFFFFF),
                     borderRadius: BorderRadius.circular(16),
                     border      : Border.all(
-                      color: Colors.white.withValues(alpha: 0.65),
+                      color: const Color(0xA6FFFFFF),
                       width: 1.2,
                     ),
                   ),
@@ -48,22 +56,11 @@ void registerNaTextFieldPlus(NaUiType uiType) {
                     readOnly          : widget.readOnly,
                     showCursor        : widget.showCursor,
                     obscureText       : widget.obscureText,
-                    autocorrect       : widget.autocorrect,
-                    enableSuggestions : widget.enableSuggestions,
-                    maxLines          : widget.maxLines,
-                    minLines          : widget.minLines,
-                    expands           : widget.expands,
-                    maxLength         : widget.maxLength,
                     onChanged         : widget.onChanged,
-                    onEditingComplete : widget.onEditingComplete,
                     onSubmitted       : widget.onSubmitted,
-                    inputFormatters   : widget.inputFormatters,
-                    enabled           : widget.enabled ?? true,
-                    padding           : const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical  : 12,
-                    ),
-                    decoration: null,
+                    placeholder       : genericOptions?.placeholder,
+                    decoration        : null,
+                    padding           : const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                   ),
                 ),
               ),
@@ -81,17 +78,9 @@ void registerNaTextFieldPlus(NaUiType uiType) {
             readOnly          : widget.readOnly,
             showCursor        : widget.showCursor,
             obscureText       : widget.obscureText,
-            autocorrect       : widget.autocorrect,
-            enableSuggestions : widget.enableSuggestions,
-            maxLines          : widget.maxLines,
-            minLines          : widget.minLines,
-            expands           : widget.expands,
-            maxLength         : widget.maxLength,
             onChanged         : widget.onChanged,
-            onEditingComplete : widget.onEditingComplete,
             onSubmitted       : widget.onSubmitted,
-            inputFormatters   : widget.inputFormatters,
-            enabled           : widget.enabled ?? true,
+            placeholder       : genericOptions?.placeholder,
             decoration        : BoxDecoration(
               color       : CupertinoColors.tertiarySystemFill.resolveFrom(context),
               borderRadius: BorderRadius.circular(
@@ -102,31 +91,31 @@ void registerNaTextFieldPlus(NaUiType uiType) {
 
         case PlatformFamily.macOS:
           return CupertinoTextField(
-            controller     : widget.controller,
-            focusNode      : widget.focusNode,
-            keyboardType   : widget.keyboardType,
-            textInputAction: widget.textInputAction,
-            style          : widget.style,
-            textAlign      : widget.textAlign,
-            autofocus      : widget.autofocus,
-            readOnly       : widget.readOnly,
-            showCursor     : widget.showCursor,
-            obscureText    : widget.obscureText,
-            maxLines       : widget.maxLines,
-            minLines       : widget.minLines,
-            onChanged      : widget.onChanged,
-            onSubmitted    : widget.onSubmitted,
-            padding        : const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-            decoration     : BoxDecoration(
+            controller        : widget.controller,
+            focusNode         : widget.focusNode,
+            keyboardType      : widget.keyboardType,
+            textInputAction   : widget.textInputAction,
+            textCapitalization: widget.textCapitalization,
+            style             : widget.style,
+            textAlign         : widget.textAlign,
+            autofocus         : widget.autofocus,
+            readOnly          : widget.readOnly,
+            showCursor        : widget.showCursor,
+            obscureText       : widget.obscureText,
+            onChanged         : widget.onChanged,
+            onSubmitted       : widget.onSubmitted,
+            placeholder       : genericOptions?.placeholder,
+            decoration        : BoxDecoration(
               color       : CupertinoColors.tertiarySystemFill.resolveFrom(context),
               borderRadius: BorderRadius.circular(6),
+              border      : Border.all(
+                color: const Color(0xFFC7C7CC),
+                width: 0.5,
+              ),
             ),
           );
 
         case PlatformFamily.android:
-          final double radius = version == PlatformVersion.androidMaterialYou
-              ? 24.0
-              : (version == PlatformVersion.androidM3 ? 16.0 : 4.0);
           return TextField(
             controller        : widget.controller,
             focusNode         : widget.focusNode,
@@ -139,25 +128,17 @@ void registerNaTextFieldPlus(NaUiType uiType) {
             readOnly          : widget.readOnly,
             showCursor        : widget.showCursor,
             obscureText       : widget.obscureText,
-            autocorrect       : widget.autocorrect,
-            enableSuggestions : widget.enableSuggestions,
-            maxLines          : widget.maxLines,
-            minLines          : widget.minLines,
-            expands           : widget.expands,
-            maxLength         : widget.maxLength,
             onChanged         : widget.onChanged,
-            onEditingComplete : widget.onEditingComplete,
             onSubmitted       : widget.onSubmitted,
-            inputFormatters   : widget.inputFormatters,
-            enabled           : widget.enabled,
             decoration        : InputDecoration(
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(radius),
+              hintText: genericOptions?.placeholder,
+              border  : OutlineInputBorder(
+                borderRadius: BorderRadius.circular(
+                  version == PlatformVersion.androidMaterialYou
+                      ? 24
+                      : (version == PlatformVersion.androidM3 ? 16 : 4),
+                ),
               ),
-              filled   : version != PlatformVersion.androidM2,
-              fillColor: version == PlatformVersion.androidMaterialYou
-                  ? const Color(0xFFE8EDF4)
-                  : const Color(0xFFF7F2FA),
             ),
           );
       }

@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/widgets.dart';
 import 'package:nanna_platform/nanna_platform.dart';
 
 import '../models/platform-target.dart';
@@ -20,8 +19,8 @@ void registerNaIconPlus(NaUiType uiType) {
       final iconData = widget.icon.resolve(targetType);
 
       final Color? effectiveColor = widget.color ??
-          ((version == PlatformVersion.ios26 ||
-                  version == PlatformVersion.ios27)
+          (((version == PlatformVersion.ios26) ||
+                  (version == PlatformVersion.ios27))
               ? const Color(0xFF007AFF)
               : null);
 

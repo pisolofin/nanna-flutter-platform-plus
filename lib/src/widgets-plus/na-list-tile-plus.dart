@@ -1,8 +1,9 @@
 import 'dart:ui';
 
-import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/widgets.dart';
 import 'package:nanna_platform/nanna_platform.dart';
+import 'package:flutter/material.dart' show ListTile;
+import 'package:flutter/cupertino.dart' show CupertinoListTile, CupertinoListTileChevron;
 
 import '../models/platform-target.dart';
 import '../services/platform-version-controller.dart';
@@ -18,10 +19,10 @@ void registerNaListTilePlus(NaUiType uiType) {
       switch (version.family) {
         case PlatformFamily.iOS:
         case PlatformFamily.iPadOS:
-          if (version == PlatformVersion.ios26 ||
-              version == PlatformVersion.ios27 ||
-              version == PlatformVersion.ipados26 ||
-              version == PlatformVersion.ipados27) {
+          if ((version == PlatformVersion.ios26) ||
+              (version == PlatformVersion.ios27) ||
+              (version == PlatformVersion.ipados26) ||
+              (version == PlatformVersion.ipados27)) {
             // Liquid Glass ListTile
             return Container(
               margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
@@ -31,10 +32,10 @@ void registerNaListTilePlus(NaUiType uiType) {
                   filter: ImageFilter.blur(sigmaX: 18, sigmaY: 18),
                   child : Container(
                     decoration: BoxDecoration(
-                      color       : Colors.white.withValues(alpha: 0.45),
+                      color       : const Color(0x73FFFFFF),
                       borderRadius: BorderRadius.circular(16),
                       border      : Border.all(
-                        color: Colors.white.withValues(alpha: 0.55),
+                        color: const Color(0x8CFFFFFF),
                         width: 1.0,
                       ),
                     ),
@@ -67,8 +68,9 @@ void registerNaListTilePlus(NaUiType uiType) {
             leading : widget.leading,
             title   : widget.title,
             subtitle: widget.subtitle,
-            trailing: widget.trailing,
-            onTap   : widget.onTap,
+            trailing: widget.trailing ??
+                (widget.hasChevron ? const CupertinoListTileChevron() : null),
+            onTap: widget.onTap,
           );
 
         case PlatformFamily.android:
@@ -78,13 +80,14 @@ void registerNaListTilePlus(NaUiType uiType) {
             subtitle: widget.subtitle,
             trailing: widget.trailing ??
                 (widget.hasChevron
-                    ? const Icon(Icons.chevron_right, size: 20)
+                    ? const NaIcon(NaIcons.chevronRight, size: 20)
                     : null),
             onTap: widget.onTap,
-            shape: (version == PlatformVersion.androidMaterialYou ||
-                    version == PlatformVersion.androidM3)
-                ? RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))
-                : null,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(
+                version == PlatformVersion.androidMaterialYou ? 16 : 8,
+              ),
+            ),
           );
       }
     },

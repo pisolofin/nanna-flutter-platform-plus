@@ -1,6 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart' show Slider;
 import 'package:nanna_platform/nanna_platform.dart';
+import 'package:flutter/cupertino.dart' show CupertinoColors, CupertinoSlider;
 
 import '../models/platform-target.dart';
 import '../services/platform-version-controller.dart';
@@ -29,8 +30,8 @@ void registerNaSliderPlus(NaUiType uiType) {
             min        : widget.min,
             max        : widget.max,
             divisions  : divisions,
-            activeColor: version == PlatformVersion.ios26 ||
-                    version == PlatformVersion.ios27
+            activeColor: ((version == PlatformVersion.ios26) ||
+                    (version == PlatformVersion.ios27))
                 ? const Color(0xFF0A84FF)
                 : CupertinoColors.activeBlue,
           );

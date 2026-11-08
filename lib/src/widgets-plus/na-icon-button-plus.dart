@@ -1,8 +1,9 @@
 import 'dart:ui';
 
-import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/widgets.dart';
 import 'package:nanna_platform/nanna_platform.dart';
+import 'package:flutter/material.dart' show IconButton;
+import 'package:flutter/cupertino.dart' show CupertinoButton;
 
 import '../models/platform-target.dart';
 import '../services/platform-version-controller.dart';
@@ -18,10 +19,10 @@ void registerNaIconButtonPlus(NaUiType uiType) {
       switch (version.family) {
         case PlatformFamily.iOS:
         case PlatformFamily.iPadOS:
-          if (version == PlatformVersion.ios26 ||
-              version == PlatformVersion.ios27 ||
-              version == PlatformVersion.ipados26 ||
-              version == PlatformVersion.ipados27) {
+          if ((version == PlatformVersion.ios26) ||
+              (version == PlatformVersion.ios27) ||
+              (version == PlatformVersion.ipados26) ||
+              (version == PlatformVersion.ipados27)) {
             // Liquid Glass circular icon button
             return ClipOval(
               child: BackdropFilter(
@@ -31,9 +32,9 @@ void registerNaIconButtonPlus(NaUiType uiType) {
                   height    : 44,
                   decoration: BoxDecoration(
                     shape : BoxShape.circle,
-                    color : Colors.white.withValues(alpha: 0.35),
+                    color : const Color(0x59FFFFFF),
                     border: Border.all(
-                      color: Colors.white.withValues(alpha: 0.6),
+                      color: const Color(0x99FFFFFF),
                       width: 1.0,
                     ),
                   ),
@@ -53,8 +54,8 @@ void registerNaIconButtonPlus(NaUiType uiType) {
           );
 
         case PlatformFamily.macOS:
-          if (version == PlatformVersion.macos26 ||
-              version == PlatformVersion.macos27) {
+          if ((version == PlatformVersion.macos26) ||
+              (version == PlatformVersion.macos27)) {
             return ClipRRect(
               borderRadius: BorderRadius.circular(8),
               child       : BackdropFilter(
@@ -64,38 +65,32 @@ void registerNaIconButtonPlus(NaUiType uiType) {
                   height    : 32,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
-                    color       : Colors.white.withValues(alpha: 0.3),
+                    color       : const Color(0x4DFFFFFF),
                     border      : Border.all(
-                      color: Colors.black.withValues(alpha: 0.1),
-                      width: 0.8,
+                      color: const Color(0x1A000000),
+                      width: 1.0,
                     ),
                   ),
-                  child: IconButton(
-                    padding  : EdgeInsets.zero,
-                    iconSize : 18,
-                    onPressed: widget.onPressed,
-                    icon     : widget.icon,
+                  child: CupertinoButton(
+                    padding    : EdgeInsets.zero,
+                    onPressed  : widget.onPressed,
+                    minimumSize: const Size(32, 32),
+                    child      : widget.icon,
                   ),
                 ),
               ),
             );
           }
-          return IconButton(
-            iconSize : 20,
-            padding  : const EdgeInsets.all(6.0),
-            onPressed: widget.onPressed,
-            icon     : widget.icon,
+          return CupertinoButton(
+            padding    : const EdgeInsets.all(6.0),
+            onPressed  : widget.onPressed,
+            minimumSize: const Size(28, 28),
+            child      : widget.icon,
           );
 
         case PlatformFamily.android:
           if (version == PlatformVersion.androidMaterialYou) {
             return IconButton.filledTonal(
-              onPressed: widget.onPressed,
-              icon     : widget.icon,
-            );
-          }
-          if (version == PlatformVersion.androidM3) {
-            return IconButton(
               onPressed: widget.onPressed,
               icon     : widget.icon,
             );

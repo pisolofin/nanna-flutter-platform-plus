@@ -1,6 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart' show Switch;
 import 'package:nanna_platform/nanna_platform.dart';
+import 'package:flutter/cupertino.dart' show CupertinoColors, CupertinoSwitch;
 
 import '../models/platform-target.dart';
 import '../services/platform-version-controller.dart';
@@ -16,10 +17,10 @@ void registerNaSwitchPlus(NaUiType uiType) {
       switch (version.family) {
         case PlatformFamily.iOS:
         case PlatformFamily.iPadOS:
-          if (version == PlatformVersion.ios26 ||
-              version == PlatformVersion.ios27 ||
-              version == PlatformVersion.ipados26 ||
-              version == PlatformVersion.ipados27) {
+          if ((version == PlatformVersion.ios26) ||
+              (version == PlatformVersion.ios27) ||
+              (version == PlatformVersion.ipados26) ||
+              (version == PlatformVersion.ipados27)) {
             // iOS 26 / 27: Elongated pill thumb (Liquid Glass)
             return _Ios26PillSwitch(
               value    : widget.value,
@@ -35,8 +36,8 @@ void registerNaSwitchPlus(NaUiType uiType) {
           );
 
         case PlatformFamily.macOS:
-          if (version == PlatformVersion.macos26 ||
-              version == PlatformVersion.macos27) {
+          if ((version == PlatformVersion.macos26) ||
+              (version == PlatformVersion.macos27)) {
             return _Ios26PillSwitch(
               value    : widget.value,
               onChanged: widget.onChanged,
@@ -54,12 +55,12 @@ void registerNaSwitchPlus(NaUiType uiType) {
           );
 
         case PlatformFamily.android:
-          if (version == PlatformVersion.androidMaterialYou ||
-              version == PlatformVersion.androidM3) {
+          if ((version == PlatformVersion.androidMaterialYou) ||
+              (version == PlatformVersion.androidM3)) {
             return Switch(
               value           : widget.value,
               onChanged       : widget.onChanged,
-              activeThumbColor: Colors.white,
+              activeThumbColor: const Color(0xFFFFFFFF),
               activeTrackColor: const Color(0xFF6750A4),
             );
           }
@@ -111,11 +112,11 @@ class _Ios26PillSwitch extends StatelessWidget {
           decoration: BoxDecoration(
             color       : trackColor,
             borderRadius: BorderRadius.circular(trackHeight / 2),
-            boxShadow   : [
+            boxShadow   : const [
               BoxShadow(
-                color     : Colors.black.withValues(alpha: 0.08),
+                color     : Color(0x14000000),
                 blurRadius: 4,
-                offset    : const Offset(0, 1),
+                offset    : Offset(0, 1),
               ),
             ],
           ),
@@ -131,18 +132,18 @@ class _Ios26PillSwitch extends StatelessWidget {
                     width     : thumbWidth,
                     height    : thumbHeight,
                     decoration: BoxDecoration(
-                      color       : Colors.white,
+                      color       : const Color(0xFFFFFFFF),
                       borderRadius: BorderRadius.circular(thumbHeight / 2),
-                      boxShadow   : [
+                      boxShadow   : const [
                         BoxShadow(
-                          color     : Colors.black.withValues(alpha: 0.16),
+                          color     : Color(0x29000000),
                           blurRadius: 4,
-                          offset    : const Offset(0, 2),
+                          offset    : Offset(0, 2),
                         ),
                         BoxShadow(
-                          color     : Colors.black.withValues(alpha: 0.04),
+                          color     : Color(0x0A000000),
                           blurRadius: 1,
-                          offset    : const Offset(0, 0),
+                          offset    : Offset(0, 0),
                         ),
                       ],
                     ),

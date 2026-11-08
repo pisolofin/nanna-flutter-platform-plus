@@ -1,8 +1,9 @@
 import 'dart:ui';
 
-import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart' show AppBar;
 import 'package:nanna_platform/nanna_platform.dart';
+import 'package:flutter/cupertino.dart' show CupertinoColors, CupertinoNavigationBar;
 
 import '../models/platform-target.dart';
 import '../services/platform-version-controller.dart';
@@ -18,16 +19,16 @@ void registerNaAppBarPlus(NaUiType uiType) {
       switch (version.family) {
         case PlatformFamily.iOS:
         case PlatformFamily.iPadOS:
-          if (version == PlatformVersion.ios26 ||
-              version == PlatformVersion.ios27 ||
-              version == PlatformVersion.ipados26 ||
-              version == PlatformVersion.ipados27) {
+          if ((version == PlatformVersion.ios26) ||
+              (version == PlatformVersion.ios27) ||
+              (version == PlatformVersion.ipados26) ||
+              (version == PlatformVersion.ipados27)) {
             return _LiquidGlassAppBar(widget: widget, version: version);
           }
           return CupertinoNavigationBar(
             middle  : widget.title,
             leading : widget.leading,
-            trailing: widget.actions != null && widget.actions!.isNotEmpty
+            trailing: ((widget.actions != null) && (widget.actions!.isNotEmpty))
                 ? Row(
                     mainAxisSize: MainAxisSize.min,
                     children    : widget.actions!,
@@ -41,31 +42,38 @@ void registerNaAppBarPlus(NaUiType uiType) {
           return Container(
             height    : 48,
             padding   : const EdgeInsets.symmetric(horizontal: 16),
-            decoration: BoxDecoration(
-              color : const Color(0xFFF6F6F6),
+            decoration: const BoxDecoration(
+              color : Color(0xFFF6F6F6),
               border: Border(
                 bottom: BorderSide(
-                  color: Colors.black.withValues(alpha: 0.1),
+                  color: Color(0x1A000000),
                   width: 1,
                 ),
               ),
             ),
             child: Row(
               children: [
-                if (widget.leading != null) widget.leading!,
+                // Optional leading navigation item
+                if (widget.leading != null) ...[
+                  widget.leading!,
+                ],
+                // Centered window title
                 Expanded(
                   child: Center(
                     child: DefaultTextStyle(
                       style: const TextStyle(
                         fontSize  : 13,
                         fontWeight: FontWeight.w600,
-                        color     : Colors.black87,
+                        color     : Color(0xDD000000),
                       ),
                       child: widget.title ?? const SizedBox.shrink(),
                     ),
                   ),
                 ),
-                if (widget.actions != null) ...widget.actions!,
+                // Trailing actions list
+                if (widget.actions != null) ...[
+                  ...widget.actions!,
+                ],
               ],
             ),
           );
@@ -96,7 +104,7 @@ void registerNaAppBarPlus(NaUiType uiType) {
             leading        : widget.leading,
             actions        : widget.actions,
             backgroundColor: const Color(0xFF6200EE),
-            foregroundColor: Colors.white,
+            foregroundColor: const Color(0xFFFFFFFF),
             elevation      : 4,
           );
       }
@@ -119,11 +127,11 @@ class _LiquidGlassAppBar extends StatelessWidget {
       child: BackdropFilter(
         filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
         child : Container(
-          decoration: BoxDecoration(
-            color : Colors.white.withValues(alpha: 0.65),
+          decoration: const BoxDecoration(
+            color : Color(0xA6FFFFFF),
             border: Border(
               bottom: BorderSide(
-                color: Colors.white.withValues(alpha: 0.6),
+                color: Color(0x99FFFFFF),
                 width: 1.0,
               ),
             ),
@@ -145,7 +153,7 @@ class _LiquidGlassAppBar extends StatelessWidget {
                         child: widget.title!,
                       )
                     : null,
-                trailing: widget.actions != null && widget.actions!.isNotEmpty
+                trailing: ((widget.actions != null) && (widget.actions!.isNotEmpty))
                     ? Row(
                         mainAxisSize: MainAxisSize.min,
                         children    : widget.actions!,

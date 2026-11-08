@@ -1,8 +1,9 @@
 import 'dart:ui';
 
-import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/widgets.dart';
 import 'package:nanna_platform/nanna_platform.dart';
+import 'package:flutter/material.dart' show CalendarDatePicker;
+import 'package:flutter/cupertino.dart' show CupertinoDatePicker, CupertinoDatePickerMode, CupertinoTimerPicker;
 
 import '../models/platform-target.dart';
 import '../services/platform-version-controller.dart';
@@ -27,8 +28,8 @@ void registerNaDateTimePickerPlus(NaUiType uiType) {
             onDateTimeChanged: widget.onDateChanged,
           );
 
-          if (version == PlatformVersion.ios26 ||
-              version == PlatformVersion.ios27) {
+          if ((version == PlatformVersion.ios26) ||
+              (version == PlatformVersion.ios27)) {
             return ClipRRect(
               borderRadius: BorderRadius.circular(20),
               child       : BackdropFilter(
@@ -36,10 +37,10 @@ void registerNaDateTimePickerPlus(NaUiType uiType) {
                 child : Container(
                   height    : 200,
                   decoration: BoxDecoration(
-                    color       : Colors.white.withValues(alpha: 0.45),
+                    color       : const Color(0x73FFFFFF),
                     borderRadius: BorderRadius.circular(20),
                     border      : Border.all(
-                      color: Colors.white.withValues(alpha: 0.6),
+                      color: const Color(0x99FFFFFF),
                       width: 1.0,
                     ),
                   ),
@@ -80,8 +81,8 @@ void registerNaDateTimePickerPlus(NaUiType uiType) {
         );
       }
 
-      if (version == PlatformVersion.ios26 ||
-          version == PlatformVersion.ios27) {
+      if ((version == PlatformVersion.ios26) ||
+          (version == PlatformVersion.ios27)) {
         return ClipRRect(
           borderRadius: BorderRadius.circular(20),
           child       : BackdropFilter(
@@ -89,10 +90,10 @@ void registerNaDateTimePickerPlus(NaUiType uiType) {
             child : Container(
               height    : 200,
               decoration: BoxDecoration(
-                color       : Colors.white.withValues(alpha: 0.45),
+                color       : const Color(0x73FFFFFF),
                 borderRadius: BorderRadius.circular(20),
                 border      : Border.all(
-                  color: Colors.white.withValues(alpha: 0.6),
+                  color: const Color(0x99FFFFFF),
                   width: 1.0,
                 ),
               ),

@@ -1,8 +1,9 @@
 import 'dart:ui';
 
-import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/widgets.dart';
 import 'package:nanna_platform/nanna_platform.dart';
+import 'package:flutter/material.dart' show AlertDialog, TextButton;
+import 'package:flutter/cupertino.dart' show CupertinoAlertDialog, CupertinoDialogAction;
 
 import '../models/platform-target.dart';
 import '../services/platform-version-controller.dart';
@@ -18,10 +19,10 @@ void registerNaDialogPlus(NaUiType uiType) {
       switch (version.family) {
         case PlatformFamily.iOS:
         case PlatformFamily.iPadOS:
-          if (version == PlatformVersion.ios26 ||
-              version == PlatformVersion.ios27 ||
-              version == PlatformVersion.ipados26 ||
-              version == PlatformVersion.ipados27) {
+          if ((version == PlatformVersion.ios26) ||
+              (version == PlatformVersion.ios27) ||
+              (version == PlatformVersion.ipados26) ||
+              (version == PlatformVersion.ipados27)) {
             // Liquid Glass Dialog
             return BackdropFilter(
               filter: ImageFilter.blur(sigmaX: 25, sigmaY: 25),

@@ -1,8 +1,9 @@
 import 'dart:ui';
 
-import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/widgets.dart';
 import 'package:nanna_platform/nanna_platform.dart';
+import 'package:flutter/material.dart' show SearchBar;
+import 'package:flutter/cupertino.dart' show CupertinoSearchTextField;
 
 import '../models/platform-target.dart';
 import '../services/platform-version-controller.dart';
@@ -18,10 +19,10 @@ void registerNaSearchBarPlus(NaUiType uiType) {
       switch (version.family) {
         case PlatformFamily.iOS:
         case PlatformFamily.iPadOS:
-          if (version == PlatformVersion.ios26 ||
-              version == PlatformVersion.ios27 ||
-              version == PlatformVersion.ipados26 ||
-              version == PlatformVersion.ipados27) {
+          if ((version == PlatformVersion.ios26) ||
+              (version == PlatformVersion.ios27) ||
+              (version == PlatformVersion.ipados26) ||
+              (version == PlatformVersion.ipados27)) {
             // Liquid Glass SearchBar
             return ClipRRect(
               borderRadius: BorderRadius.circular(20),
@@ -29,10 +30,10 @@ void registerNaSearchBarPlus(NaUiType uiType) {
                 filter: ImageFilter.blur(sigmaX: 18, sigmaY: 18),
                 child : Container(
                   decoration: BoxDecoration(
-                    color       : Colors.white.withValues(alpha: 0.45),
+                    color       : const Color(0x73FFFFFF),
                     borderRadius: BorderRadius.circular(20),
                     border      : Border.all(
-                      color: Colors.white.withValues(alpha: 0.6),
+                      color: const Color(0x99FFFFFF),
                       width: 1.0,
                     ),
                   ),
@@ -43,7 +44,7 @@ void registerNaSearchBarPlus(NaUiType uiType) {
                     onChanged      : widget.onChanged,
                     onSubmitted    : widget.onSubmitted,
                     onTap          : widget.onTap,
-                    backgroundColor: Colors.transparent,
+                    backgroundColor: const Color(0x00000000),
                     borderRadius   : BorderRadius.circular(20),
                   ),
                 ),
@@ -53,20 +54,18 @@ void registerNaSearchBarPlus(NaUiType uiType) {
           return CupertinoSearchTextField(
             controller  : widget.controller,
             focusNode   : widget.focusNode,
-            placeholder : widget.hintText,
+            placeholder : widget.hintText ?? 'Cerca...',
             onChanged   : widget.onChanged,
             onSubmitted : widget.onSubmitted,
             onTap       : widget.onTap,
-            borderRadius: BorderRadius.circular(
-              version == PlatformVersion.ios18 ? 16 : 10,
-            ),
+            borderRadius: BorderRadius.circular(version == PlatformVersion.ios18 ? 16 : 9),
           );
 
         case PlatformFamily.macOS:
           return CupertinoSearchTextField(
             controller  : widget.controller,
             focusNode   : widget.focusNode,
-            placeholder : widget.hintText,
+            placeholder : widget.hintText ?? 'Cerca...',
             onChanged   : widget.onChanged,
             onSubmitted : widget.onSubmitted,
             onTap       : widget.onTap,
@@ -75,21 +74,13 @@ void registerNaSearchBarPlus(NaUiType uiType) {
 
         case PlatformFamily.android:
           return SearchBar(
-            controller : widget.controller,
-            focusNode  : widget.focusNode,
-            hintText   : widget.hintText,
-            leading    : widget.leading ?? const Icon(Icons.search),
-            onChanged  : widget.onChanged,
-            onSubmitted: widget.onSubmitted,
-            onTap      : widget.onTap,
-            elevation  : WidgetStateProperty.all(
-              version == PlatformVersion.androidM2 ? 2.0 : 0.0,
-            ),
-            backgroundColor: WidgetStateProperty.all(
-              version == PlatformVersion.androidMaterialYou
-                  ? const Color(0xFFE8EDF4)
-                  : const Color(0xFFF7F2FA),
-            ),
+            controller: widget.controller,
+            focusNode : widget.focusNode,
+            hintText  : widget.hintText,
+            onChanged : widget.onChanged,
+            onTap     : widget.onTap,
+            leading   : widget.leading ?? const NaIcon(NaIcons.search),
+            elevation : const WidgetStatePropertyAll(0),
           );
       }
     },

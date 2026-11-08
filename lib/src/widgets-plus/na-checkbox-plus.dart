@@ -1,6 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/widgets.dart';
 import 'package:nanna_platform/nanna_platform.dart';
+import 'package:flutter/material.dart' show Checkbox;
+import 'package:flutter/cupertino.dart' show CupertinoCheckbox, CupertinoColors;
 
 import '../models/platform-target.dart';
 import '../services/platform-version-controller.dart';
@@ -16,10 +17,10 @@ void registerNaCheckboxPlus(NaUiType uiType) {
       switch (version.family) {
         case PlatformFamily.iOS:
         case PlatformFamily.iPadOS:
-          if (version == PlatformVersion.ios26 ||
-              version == PlatformVersion.ios27 ||
-              version == PlatformVersion.ipados26 ||
-              version == PlatformVersion.ipados27) {
+          if ((version == PlatformVersion.ios26) ||
+              (version == PlatformVersion.ios27) ||
+              (version == PlatformVersion.ipados26) ||
+              (version == PlatformVersion.ipados27)) {
             // Liquid Glass Checkbox
             final isChecked = widget.value == true;
             return GestureDetector(
@@ -36,11 +37,11 @@ void registerNaCheckboxPlus(NaUiType uiType) {
                       ? (version == PlatformVersion.ios27
                           ? const Color(0xFF0071E3)
                           : const Color(0xFF007AFF))
-                      : Colors.white.withValues(alpha: 0.4),
+                      : const Color(0x66FFFFFF),
                   border: Border.all(
                     color: isChecked
-                        ? Colors.transparent
-                        : Colors.black.withValues(alpha: 0.25),
+                        ? const Color(0x00000000)
+                        : const Color(0x40000000),
                     width: 1.5,
                   ),
                   boxShadow: isChecked
@@ -54,7 +55,11 @@ void registerNaCheckboxPlus(NaUiType uiType) {
                       : null,
                 ),
                 child: isChecked
-                    ? const Icon(Icons.check, size: 16, color: Colors.white)
+                    ? const NaIcon(
+                        NaIcons.check,
+                        size : 16,
+                        color: Color(0xFFFFFFFF),
+                      )
                     : null,
               ),
             );
@@ -66,27 +71,23 @@ void registerNaCheckboxPlus(NaUiType uiType) {
           );
 
         case PlatformFamily.macOS:
+          if ((version == PlatformVersion.macos26) ||
+              (version == PlatformVersion.macos27)) {
+            return CupertinoCheckbox(
+              value      : widget.value,
+              onChanged  : widget.onChanged,
+              activeColor: CupertinoColors.activeBlue,
+            );
+          }
           return CupertinoCheckbox(
-            value      : widget.value,
-            onChanged  : widget.onChanged,
-            activeColor: CupertinoColors.activeBlue,
+            value    : widget.value,
+            onChanged: widget.onChanged,
           );
 
         case PlatformFamily.android:
-          if (version == PlatformVersion.androidMaterialYou ||
-              version == PlatformVersion.androidM3) {
-            return Checkbox(
-              value    : widget.value,
-              onChanged: widget.onChanged,
-              shape    : RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(4),
-              ),
-            );
-          }
           return Checkbox(
-            value      : widget.value,
-            onChanged  : widget.onChanged,
-            activeColor: const Color(0xFF6200EE),
+            value    : widget.value,
+            onChanged: widget.onChanged,
           );
       }
     },

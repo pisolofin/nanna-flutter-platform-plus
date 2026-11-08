@@ -1,6 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/widgets.dart';
 import 'package:nanna_platform_plus/nanna_platform_plus.dart';
+import 'package:flutter/cupertino.dart' show CupertinoColors, CupertinoThemeData;
+import 'package:flutter/material.dart' show Brightness, ColorScheme, Divider, Icons, Material, MaterialType, ThemeData;
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -262,13 +263,13 @@ class _ExampleShowcasePageState extends State<ExampleShowcasePage> {
                 Icon(
                   _getPlatformIcon(family),
                   size : 16,
-                  color: isSelected ? Colors.white : Colors.black87,
+                  color: isSelected ? const Color(0xFFFFFFFF) : const Color(0xDD000000),
                 ),
                 const SizedBox(width: 6),
                 Text(
                   family.label,
                   style: TextStyle(
-                    color     : isSelected ? Colors.white : Colors.black87,
+                    color     : isSelected ? const Color(0xFFFFFFFF) : const Color(0xDD000000),
                     fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
                     fontSize  : 13,
                   ),
@@ -312,9 +313,9 @@ class _ExampleShowcasePageState extends State<ExampleShowcasePage> {
                       : const Color(0xFFF2F2F7),
                   borderRadius: BorderRadius.circular(10),
                   border      : Border.all(
-                    color: isLiquidGlass && !isSelected
+                    color: (isLiquidGlass && !isSelected)
                         ? const Color(0xFF0A84FF).withValues(alpha: 0.4)
-                        : Colors.black.withValues(alpha: 0.05),
+                        : const Color(0x0D000000),
                     width: 1,
                   ),
                   boxShadow: isSelected
@@ -322,7 +323,7 @@ class _ExampleShowcasePageState extends State<ExampleShowcasePage> {
                           BoxShadow(
                             color: isLiquidGlass
                                 ? const Color(0xFF0A84FF).withValues(alpha: 0.35)
-                                : Colors.black.withValues(alpha: 0.2),
+                                : const Color(0x33000000),
                             blurRadius: 8,
                             offset    : const Offset(0, 2),
                           ),
@@ -340,7 +341,7 @@ class _ExampleShowcasePageState extends State<ExampleShowcasePage> {
                           ? '${version.displayName} (${version.codename})'
                           : version.displayName,
                       style: TextStyle(
-                        color     : isSelected ? Colors.white : Colors.black87,
+                        color     : isSelected ? const Color(0xFFFFFFFF) : const Color(0xDD000000),
                         fontWeight:
                             isSelected ? FontWeight.w600 : FontWeight.normal,
                         fontSize: 13,
@@ -362,19 +363,19 @@ class _ExampleShowcasePageState extends State<ExampleShowcasePage> {
     return Container(
       padding   : const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color       : Colors.white,
+        color       : const Color(0xFFFFFFFF),
         borderRadius: BorderRadius.circular(20),
         border      : Border.all(
           color: isLiquidGlass
               ? const Color(0xFF0A84FF).withValues(alpha: 0.35)
-              : Colors.black.withValues(alpha: 0.08),
+              : const Color(0x14000000),
           width: isLiquidGlass ? 1.5 : 1.0,
         ),
         boxShadow: [
           BoxShadow(
             color: isLiquidGlass
                 ? const Color(0xFF0A84FF).withValues(alpha: 0.12)
-                : Colors.black.withValues(alpha: 0.05),
+                : const Color(0x0D000000),
             blurRadius: 18,
             offset    : const Offset(0, 6),
           ),
@@ -400,7 +401,7 @@ class _ExampleShowcasePageState extends State<ExampleShowcasePage> {
                   size : 14,
                   color: isLiquidGlass
                       ? const Color(0xFF0A84FF)
-                      : Colors.black87,
+                      : const Color(0xDD000000),
                 ),
                 const SizedBox(width: 6),
                 Text(
@@ -410,7 +411,7 @@ class _ExampleShowcasePageState extends State<ExampleShowcasePage> {
                     fontWeight: FontWeight.w600,
                     color     : isLiquidGlass
                         ? const Color(0xFF0A84FF)
-                        : Colors.black87,
+                        : const Color(0xDD000000),
                   ),
                 ),
               ],

@@ -1,8 +1,9 @@
 import 'dart:ui';
 
-import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/widgets.dart';
 import 'package:nanna_platform/nanna_platform.dart';
+import 'package:flutter/material.dart' show ElevatedButton;
+import 'package:flutter/cupertino.dart' show CupertinoButton;
 
 import '../models/platform-target.dart';
 import '../services/platform-version-controller.dart';
@@ -18,14 +19,14 @@ void registerNaButtonFilledPlus(NaUiType uiType) {
       switch (version.family) {
         case PlatformFamily.iOS:
         case PlatformFamily.iPadOS:
-          if (version == PlatformVersion.ios26 ||
-              version == PlatformVersion.ios27 ||
-              version == PlatformVersion.ipados26 ||
-              version == PlatformVersion.ipados27) {
+          if ((version == PlatformVersion.ios26) ||
+              (version == PlatformVersion.ios27) ||
+              (version == PlatformVersion.ipados26) ||
+              (version == PlatformVersion.ipados27)) {
             return _LiquidGlassFilledButton(
               onPressed: widget.onPressed,
-              isNextGen: version == PlatformVersion.ios27 ||
-                  version == PlatformVersion.ipados27,
+              isNextGen: (version == PlatformVersion.ios27) ||
+                  (version == PlatformVersion.ipados27),
               child: widget.child,
             );
           }
@@ -38,8 +39,8 @@ void registerNaButtonFilledPlus(NaUiType uiType) {
           );
 
         case PlatformFamily.macOS:
-          if (version == PlatformVersion.macos26 ||
-              version == PlatformVersion.macos27) {
+          if ((version == PlatformVersion.macos26) ||
+              (version == PlatformVersion.macos27)) {
             return _LiquidGlassFilledButton(
               onPressed   : widget.onPressed,
               isNextGen   : version == PlatformVersion.macos27,
@@ -48,63 +49,59 @@ void registerNaButtonFilledPlus(NaUiType uiType) {
               child       : widget.child,
             );
           }
-          return FilledButton(
-            onPressed: widget.onPressed,
-            style    : FilledButton.styleFrom(
-              backgroundColor: const Color(0xFF007AFF),
-              shape          : RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(6),
-              ),
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            ),
-            child: widget.child,
+          return CupertinoButton.filled(
+            onPressed   : widget.onPressed,
+            padding     : const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            borderRadius: BorderRadius.circular(6),
+            child       : widget.child,
           );
 
         case PlatformFamily.android:
           if (version == PlatformVersion.androidMaterialYou) {
-            return FilledButton(
+            return _AndroidFilledTonalButton(
               onPressed: widget.onPressed,
-              style    : FilledButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(28),
-                ),
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
-              ),
-              child: widget.child,
+              child    : widget.child,
             );
           }
-          if (version == PlatformVersion.androidM3) {
-            return FilledButton(
-              onPressed: widget.onPressed,
-              style    : FilledButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-              ),
-              child: widget.child,
-            );
-          }
-          // Material 2
           return ElevatedButton(
             onPressed: widget.onPressed,
-            style    : ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFF6200EE),
-              foregroundColor: Colors.white,
-              elevation      : 4,
-              shape          : RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(4),
-              ),
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-            ),
-            child: widget.child,
+            child    : widget.child,
           );
       }
     },
   );
+}
+
+class _AndroidFilledTonalButton extends StatelessWidget {
+  final VoidCallback? onPressed;
+  final Widget child;
+
+  const _AndroidFilledTonalButton({
+    required this.onPressed,
+    required this.child,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onPressed,
+      child: Container(
+        padding   : const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+        decoration: BoxDecoration(
+          color       : const Color(0xFFD0E4FF),
+          borderRadius: BorderRadius.circular(24),
+        ),
+        child: DefaultTextStyle(
+          style: const TextStyle(
+            color     : Color(0xFF001D36),
+            fontWeight: FontWeight.w600,
+            fontSize  : 14,
+          ),
+          child: child,
+        ),
+      ),
+    );
+  }
 }
 
 class _LiquidGlassFilledButton extends StatefulWidget {
@@ -117,9 +114,9 @@ class _LiquidGlassFilledButton extends StatefulWidget {
   const _LiquidGlassFilledButton({
     required this.onPressed,
     required this.child,
-    this.isNextGen = false,
-    this.padding = const EdgeInsets.symmetric(horizontal: 26, vertical: 14),
-    this.borderRadius = 26,
+    this.isNextGen     = false,
+    this.padding       = const EdgeInsets.symmetric(horizontal: 24, vertical: 13),
+    this.borderRadius  = 26.0,
   });
 
   @override
@@ -132,8 +129,9 @@ class _LiquidGlassFilledButtonState extends State<_LiquidGlassFilledButton> {
 
   @override
   Widget build(BuildContext context) {
-    final Color baseColor =
-        widget.isNextGen ? const Color(0xFF0071E3) : const Color(0xFF007AFF);
+    final Color tintColor = widget.isNextGen
+        ? const Color(0xFF0A84FF)
+        : const Color(0xFF007AFF);
 
     return GestureDetector(
       onTapDown  : (_) => setState(() => _isPressed = true),
@@ -141,8 +139,9 @@ class _LiquidGlassFilledButtonState extends State<_LiquidGlassFilledButton> {
       onTapCancel: () => setState(() => _isPressed = false),
       onTap      : widget.onPressed,
       child      : AnimatedScale(
-        scale   : _isPressed ? 0.95 : 1.0,
+        scale   : _isPressed ? 0.96 : 1.0,
         duration: const Duration(milliseconds: 120),
+        curve   : Curves.easeOutCubic,
         child   : ClipRRect(
           borderRadius: BorderRadius.circular(widget.borderRadius),
           child       : BackdropFilter(
@@ -152,28 +151,28 @@ class _LiquidGlassFilledButtonState extends State<_LiquidGlassFilledButton> {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(widget.borderRadius),
                 gradient    : LinearGradient(
-                  begin : Alignment.topCenter,
-                  end   : Alignment.bottomCenter,
+                  begin : Alignment.topLeft,
+                  end   : Alignment.bottomRight,
                   colors: [
-                    baseColor.withValues(alpha: _isPressed ? 0.95 : 0.88),
-                    baseColor.withValues(alpha: _isPressed ? 0.80 : 0.72),
+                    tintColor.withValues(alpha: _isPressed ? 0.95 : 0.88),
+                    tintColor.withValues(alpha: _isPressed ? 0.80 : 0.72),
                   ],
                 ),
                 border: Border.all(
-                  color: Colors.white.withValues(alpha: 0.55),
+                  color: const Color(0x8CFFFFFF),
                   width: 1.2,
                 ),
                 boxShadow: [
                   BoxShadow(
-                    color     : baseColor.withValues(alpha: 0.4),
-                    blurRadius: 20,
+                    color     : tintColor.withValues(alpha: 0.40),
+                    blurRadius: 18,
                     offset    : const Offset(0, 6),
                   ),
                 ],
               ),
               child: DefaultTextStyle(
                 style: const TextStyle(
-                  color        : Colors.white,
+                  color        : Color(0xFFFFFFFF),
                   fontWeight   : FontWeight.w600,
                   fontSize     : 16,
                   letterSpacing: -0.3,

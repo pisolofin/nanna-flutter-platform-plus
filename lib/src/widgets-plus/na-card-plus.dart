@@ -1,8 +1,9 @@
 import 'dart:ui';
 
-import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart' show Card;
 import 'package:nanna_platform/nanna_platform.dart';
+import 'package:flutter/cupertino.dart' show CupertinoColors;
 
 import '../models/platform-target.dart';
 import '../services/platform-version-controller.dart';
@@ -23,10 +24,10 @@ void registerNaCardPlus(NaUiType uiType) {
       switch (version.family) {
         case PlatformFamily.iOS:
         case PlatformFamily.iPadOS:
-          if (version == PlatformVersion.ios26 ||
-              version == PlatformVersion.ios27 ||
-              version == PlatformVersion.ipados26 ||
-              version == PlatformVersion.ipados27) {
+          if ((version == PlatformVersion.ios26) ||
+              (version == PlatformVersion.ios27) ||
+              (version == PlatformVersion.ipados26) ||
+              (version == PlatformVersion.ipados27)) {
             // Liquid Glass Card
             return ClipRRect(
               borderRadius: BorderRadius.circular(24),
@@ -36,23 +37,23 @@ void registerNaCardPlus(NaUiType uiType) {
                   padding   : padding,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(24),
-                    gradient    : LinearGradient(
+                    gradient    : const LinearGradient(
                       begin : Alignment.topLeft,
                       end   : Alignment.bottomRight,
                       colors: [
-                        Colors.white.withValues(alpha: 0.55),
-                        Colors.white.withValues(alpha: 0.25),
+                        Color(0x8CFFFFFF),
+                        Color(0x40FFFFFF),
                       ],
                     ),
                     border: Border.all(
-                      color: Colors.white.withValues(alpha: 0.6),
+                      color: const Color(0x99FFFFFF),
                       width: 1.2,
                     ),
-                    boxShadow: [
+                    boxShadow: const [
                       BoxShadow(
-                        color     : Colors.black.withValues(alpha: 0.06),
+                        color     : Color(0x0F000000),
                         blurRadius: 18,
-                        offset    : const Offset(0, 6),
+                        offset    : Offset(0, 6),
                       ),
                     ],
                   ),
@@ -78,8 +79,8 @@ void registerNaCardPlus(NaUiType uiType) {
           );
 
         case PlatformFamily.macOS:
-          if (version == PlatformVersion.macos26 ||
-              version == PlatformVersion.macos27) {
+          if ((version == PlatformVersion.macos26) ||
+              (version == PlatformVersion.macos27)) {
             return ClipRRect(
               borderRadius: BorderRadius.circular(14),
               child       : BackdropFilter(
@@ -88,9 +89,9 @@ void registerNaCardPlus(NaUiType uiType) {
                   padding   : padding,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(14),
-                    color       : Colors.white.withValues(alpha: 0.5),
+                    color       : const Color(0x80FFFFFF),
                     border      : Border.all(
-                      color: Colors.black.withValues(alpha: 0.12),
+                      color: const Color(0x1F000000),
                       width: 1.0,
                     ),
                   ),

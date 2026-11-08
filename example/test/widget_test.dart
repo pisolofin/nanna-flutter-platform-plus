@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:nanna_platform_plus/nanna_platform_plus.dart';
 import 'package:nanna_platform_plus_example/main.dart';
+import 'package:nanna_platform_plus/nanna_platform_plus.dart';
 
 void main() {
   setUp(() {

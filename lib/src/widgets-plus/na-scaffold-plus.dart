@@ -1,6 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/widgets.dart';
 import 'package:nanna_platform/nanna_platform.dart';
+import 'package:flutter/material.dart' show Material, MaterialType, Scaffold;
+import 'package:flutter/cupertino.dart' show CupertinoColors, CupertinoPageScaffold, ObstructingPreferredSizeWidget;
 
 import '../models/platform-target.dart';
 import '../services/platform-version-controller.dart';

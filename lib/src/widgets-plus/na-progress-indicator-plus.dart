@@ -1,6 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/widgets.dart';
 import 'package:nanna_platform/nanna_platform.dart';
+import 'package:flutter/material.dart' show CircularProgressIndicator;
+import 'package:flutter/cupertino.dart' show CupertinoActivityIndicator;
 
 import '../models/platform-target.dart';
 import '../services/platform-version-controller.dart';

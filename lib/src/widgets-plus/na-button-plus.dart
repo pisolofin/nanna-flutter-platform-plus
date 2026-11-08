@@ -1,7 +1,8 @@
 import 'dart:ui';
 
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/widgets.dart';
 import 'package:nanna_platform/nanna_platform.dart';
+import 'package:flutter/cupertino.dart' show CupertinoButton, CupertinoColors;
 
 import '../models/platform-target.dart';
 import '../services/platform-version-controller.dart';
@@ -51,7 +52,7 @@ Widget _buildIosButton(
       color       : CupertinoColors.activeBlue,
       child       : DefaultTextStyle.merge(
         style: const TextStyle(
-          color     : CupertinoColors.white,
+          color     : Color(0xFFFFFFFF),
           fontWeight: FontWeight.w600,
           fontSize  : 16,
         ),
@@ -67,7 +68,7 @@ Widget _buildIosButton(
     borderRadius: BorderRadius.circular(10),
     child       : DefaultTextStyle.merge(
       style: const TextStyle(
-        color     : CupertinoColors.white,
+        color     : Color(0xFFFFFFFF),
         fontWeight: FontWeight.w600,
         fontSize  : 16,
       ),
@@ -119,7 +120,7 @@ Widget _buildIpadosButton(
     color       : CupertinoColors.systemIndigo,
     child       : DefaultTextStyle.merge(
       style: const TextStyle(
-        color     : CupertinoColors.white,
+        color     : Color(0xFFFFFFFF),
         fontWeight: FontWeight.w600,
         fontSize  : 16,
       ),
@@ -149,7 +150,7 @@ Widget _buildAndroidButton(
     return _AndroidM3Button(
       onPressed      : widget.onPressed,
       backgroundColor: const Color(0xFF6750A4),
-      foregroundColor: CupertinoColors.white,
+      foregroundColor: const Color(0xFFFFFFFF),
       borderRadius   : 20,
       child          : widget.child,
     );
@@ -291,7 +292,7 @@ class _AndroidM2Button extends StatelessWidget {
         ),
         child: DefaultTextStyle.merge(
           style: const TextStyle(
-            color        : CupertinoColors.white,
+            color        : Color(0xFFFFFFFF),
             fontWeight   : FontWeight.w600,
             fontSize     : 14,
             letterSpacing: 1.1,
@@ -356,7 +357,7 @@ class _LiquidGlassButtonState extends State<_LiquidGlassButton> {
                   ],
                 ),
                 border: Border.all(
-                  color: CupertinoColors.white.withValues(alpha: 0.45),
+                  color: const Color(0x73FFFFFF),
                   width: 1.2,
                 ),
                 boxShadow: [
@@ -369,7 +370,7 @@ class _LiquidGlassButtonState extends State<_LiquidGlassButton> {
               ),
               child: DefaultTextStyle(
                 style: const TextStyle(
-                  color        : CupertinoColors.white,
+                  color        : Color(0xFFFFFFFF),
                   fontWeight   : FontWeight.w600,
                   fontSize     : 16,
                   letterSpacing: -0.3,
@@ -405,12 +406,12 @@ class _LiquidGlassDesktopButton extends StatelessWidget {
         child : Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
-            gradient    : LinearGradient(
+            gradient    : const LinearGradient(
               begin : Alignment.topCenter,
               end   : Alignment.bottomCenter,
               colors: [
-                CupertinoColors.white.withValues(alpha: 0.35),
-                CupertinoColors.white.withValues(alpha: 0.15),
+                Color(0x59FFFFFF),
+                Color(0x26FFFFFF),
               ],
             ),
             border: Border.all(
