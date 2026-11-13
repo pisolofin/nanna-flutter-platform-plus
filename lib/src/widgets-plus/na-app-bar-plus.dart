@@ -1,8 +1,8 @@
 import 'dart:ui';
 
 import 'package:flutter/widgets.dart';
-import 'package:flutter/material.dart' show AppBar;
 import 'package:nanna_platform/nanna_platform.dart';
+import 'package:flutter/material.dart' show AppBar, Theme;
 import 'package:flutter/cupertino.dart' show CupertinoColors, CupertinoNavigationBar;
 
 import '../models/platform-target.dart';
@@ -79,12 +79,18 @@ void registerNaAppBarPlus(NaUiType uiType) {
           );
 
         case PlatformFamily.android:
+          final bool isDark       = Theme.of(context).brightness == Brightness.dark;
+          final Color effectiveBg = widget.backgroundColor ??
+              (isDark ? const Color(0xFF0B1120) : const Color(0xFFF0F4F9));
+          final Color effectiveFg = isDark ? const Color(0xFFF1F5F9) : const Color(0xFF1E293B);
+
           if (version == PlatformVersion.androidMaterialYou) {
             return AppBar(
               title          : widget.title,
               leading        : widget.leading,
               actions        : widget.actions,
-              backgroundColor: const Color(0xFFF0F4F9),
+              backgroundColor: effectiveBg,
+              foregroundColor: effectiveFg,
               elevation      : 0,
               centerTitle    : true,
             );
@@ -94,7 +100,8 @@ void registerNaAppBarPlus(NaUiType uiType) {
               title          : widget.title,
               leading        : widget.leading,
               actions        : widget.actions,
-              backgroundColor: const Color(0xFFF7F2FA),
+              backgroundColor: effectiveBg,
+              foregroundColor: effectiveFg,
               elevation      : 0,
               centerTitle    : true,
             );
@@ -103,8 +110,8 @@ void registerNaAppBarPlus(NaUiType uiType) {
             title          : widget.title,
             leading        : widget.leading,
             actions        : widget.actions,
-            backgroundColor: const Color(0xFF6200EE),
-            foregroundColor: const Color(0xFFFFFFFF),
+            backgroundColor: widget.backgroundColor ?? (isDark ? const Color(0xFF0B1120) : const Color(0xFF6200EE)),
+            foregroundColor: isDark ? const Color(0xFFF1F5F9) : const Color(0xFFFFFFFF),
             elevation      : 4,
           );
       }

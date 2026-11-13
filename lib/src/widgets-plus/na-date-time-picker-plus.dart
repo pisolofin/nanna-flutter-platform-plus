@@ -69,17 +69,15 @@ void registerNaDateTimePickerPlus(NaUiType uiType) {
       final PlatformVersion version =
           PlatformVersionController.instance.currentVersion;
 
+      if (version.family == PlatformFamily.android) {
+        return widget.renderForUIType(context, NaUiType.material) ??
+            const SizedBox.shrink();
+      }
+
       final picker = CupertinoTimerPicker(
         initialTimerDuration  : widget.initialTimerDuration,
         onTimerDurationChanged: widget.onTimerDurationChanged,
       );
-
-      if (version.family == PlatformFamily.android) {
-        return SizedBox(
-          height: 200,
-          child : picker,
-        );
-      }
 
       if ((version == PlatformVersion.ios26) ||
           (version == PlatformVersion.ios27)) {

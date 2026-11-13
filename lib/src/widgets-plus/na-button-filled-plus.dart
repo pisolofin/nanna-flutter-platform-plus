@@ -2,8 +2,8 @@ import 'dart:ui';
 
 import 'package:flutter/widgets.dart';
 import 'package:nanna_platform/nanna_platform.dart';
-import 'package:flutter/material.dart' show ElevatedButton;
 import 'package:flutter/cupertino.dart' show CupertinoButton;
+import 'package:flutter/material.dart' show ElevatedButton, Theme;
 
 import '../models/platform-target.dart';
 import '../services/platform-version-controller.dart';
@@ -83,17 +83,18 @@ class _AndroidFilledTonalButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bool isDark = Theme.of(context).brightness == Brightness.dark;
     return GestureDetector(
       onTap: onPressed,
       child: Container(
-        padding   : const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+        padding   : const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         decoration: BoxDecoration(
-          color       : const Color(0xFFD0E4FF),
+          color       : isDark ? const Color(0xFF1E3A5F) : const Color(0xFFD0E4FF),
           borderRadius: BorderRadius.circular(24),
         ),
         child: DefaultTextStyle(
-          style: const TextStyle(
-            color     : Color(0xFF001D36),
+          style: TextStyle(
+            color     : isDark ? const Color(0xFF7DD3FC) : const Color(0xFF001D36),
             fontWeight: FontWeight.w600,
             fontSize  : 14,
           ),

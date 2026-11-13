@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:flutter/widgets.dart';
 import 'package:nanna_platform/nanna_platform.dart';
 import 'package:flutter/cupertino.dart' show CupertinoColors, CupertinoTabBar;
-import 'package:flutter/material.dart' show BottomNavigationBar, BottomNavigationBarType, NavigationBar, NavigationDestination;
+import 'package:flutter/material.dart' show BottomNavigationBar, BottomNavigationBarType, NavigationBar, NavigationDestination, Theme;
 
 import '../models/platform-target.dart';
 import '../services/platform-version-controller.dart';
@@ -308,6 +308,8 @@ Widget _buildAndroidBottomBar(
   NaBottomNavigationBar widget,
   PlatformVersion version,
 ) {
+  final bool isDark = Theme.of(context).brightness == Brightness.dark;
+
   // Material 3 & Material You (NavigationBar with pill indicator)
   if ((version == PlatformVersion.androidM3) ||
       (version == PlatformVersion.androidMaterialYou)) {
@@ -315,12 +317,12 @@ Widget _buildAndroidBottomBar(
     return NavigationBar(
       selectedIndex        : widget.currentIndex,
       onDestinationSelected: widget.onTap,
-      indicatorColor       : isMaterialYou
-          ? const Color(0xFFD0E4FF)
-          : const Color(0xFFE8DEF8),
-      backgroundColor: isMaterialYou
-          ? const Color(0xFFF0F4F9)
-          : const Color(0xFFF7F2FA),
+      indicatorColor       : isDark
+          ? (isMaterialYou ? const Color(0xFF1E3A5F) : const Color(0xFF382D4F))
+          : (isMaterialYou ? const Color(0xFFD0E4FF) : const Color(0xFFE8DEF8)),
+      backgroundColor: isDark
+          ? const Color(0xFF0B1120)
+          : (isMaterialYou ? const Color(0xFFF0F4F9) : const Color(0xFFF7F2FA)),
       elevation   : 3,
       destinations: widget.items.map((item) {
         return NavigationDestination(
@@ -336,9 +338,9 @@ Widget _buildAndroidBottomBar(
     items              : widget.items,
     currentIndex       : widget.currentIndex,
     onTap              : widget.onTap,
-    backgroundColor    : const Color(0xFFFFFFFF),
-    selectedItemColor  : const Color(0xFF6200EE),
-    unselectedItemColor: const Color(0x8A000000),
+    backgroundColor    : isDark ? const Color(0xFF0B1120) : const Color(0xFFFFFFFF),
+    selectedItemColor  : isDark ? const Color(0xFF38BDF8) : const Color(0xFF6200EE),
+    unselectedItemColor: isDark ? const Color(0xFF94A3B8) : const Color(0x8A000000),
     type               : BottomNavigationBarType.fixed,
     elevation          : 8,
   );
