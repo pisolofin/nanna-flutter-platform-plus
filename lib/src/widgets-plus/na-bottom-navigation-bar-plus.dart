@@ -314,22 +314,32 @@ Widget _buildAndroidBottomBar(
   if ((version == PlatformVersion.androidM3) ||
       (version == PlatformVersion.androidMaterialYou)) {
     final bool isMaterialYou = version == PlatformVersion.androidMaterialYou;
-    return NavigationBar(
-      selectedIndex        : widget.currentIndex,
-      onDestinationSelected: widget.onTap,
-      indicatorColor       : isDark
-          ? (isMaterialYou ? const Color(0xFF1E3A5F) : const Color(0xFF382D4F))
-          : (isMaterialYou ? const Color(0xFFD0E4FF) : const Color(0xFFE8DEF8)),
-      backgroundColor: isDark
-          ? const Color(0xFF0B1120)
-          : (isMaterialYou ? const Color(0xFFF0F4F9) : const Color(0xFFF7F2FA)),
-      elevation   : 3,
-      destinations: widget.items.map((item) {
-        return NavigationDestination(
-          icon : item.icon,
-          label: item.label ?? '',
-        );
-      }).toList(),
+    return Container(
+      decoration: BoxDecoration(
+        border: Border(
+          top: BorderSide(
+            color: isDark ? const Color(0xFF1E293B) : const Color(0xFFE2E8F0),
+            width: 1.0,
+          ),
+        ),
+      ),
+      child: NavigationBar(
+        selectedIndex        : widget.currentIndex,
+        onDestinationSelected: widget.onTap,
+        indicatorColor       : isDark
+            ? (isMaterialYou ? const Color(0xFF1E3A5F) : const Color(0xFF382D4F))
+            : (isMaterialYou ? const Color(0xFFD0E4FF) : const Color(0xFFE8DEF8)),
+        backgroundColor: isDark
+            ? const Color(0xFF131C31)
+            : (isMaterialYou ? const Color(0xFFF0F4F9) : const Color(0xFFF7F2FA)),
+        elevation   : 3,
+        destinations: widget.items.map((item) {
+          return NavigationDestination(
+            icon : item.icon,
+            label: item.label ?? '',
+          );
+        }).toList(),
+      ),
     );
   }
 

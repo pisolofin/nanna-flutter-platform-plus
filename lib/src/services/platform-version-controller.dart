@@ -10,8 +10,21 @@ class PlatformVersionController extends ChangeNotifier {
   static PlatformVersionController get instance => _instance;
 
   PlatformVersionController._internal() {
-    _currentFamily  = PlatformFamily.iOS;
-    _currentVersion = PlatformVersion.ios26;
+    switch (defaultTargetPlatform) {
+      case TargetPlatform.android:
+      case TargetPlatform.fuchsia:
+      case TargetPlatform.linux:
+      case TargetPlatform.windows:
+        _currentFamily = PlatformFamily.android;
+        break;
+      case TargetPlatform.iOS:
+        _currentFamily = PlatformFamily.iOS;
+        break;
+      case TargetPlatform.macOS:
+        _currentFamily = PlatformFamily.macOS;
+        break;
+    }
+    _currentVersion = PlatformVersion.forFamily(_currentFamily).last;
   }
 
   late PlatformFamily _currentFamily;

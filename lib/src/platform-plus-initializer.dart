@@ -1,6 +1,7 @@
 import 'package:nanna_platform/nanna_platform.dart';
 
 import 'models/ui-type-plus.dart';
+import 'widgets-plus/na-app-plus.dart';
 import 'widgets-plus/na-card-plus.dart';
 import 'widgets-plus/na-icon-plus.dart';
 import 'widgets-plus/na-radio-plus.dart';
@@ -40,6 +41,7 @@ class NannaPlatformPlus {
     ];
 
     for (final NaUiType type in typeList) {
+      registerNaAppPlus(type);
       registerNaAppBarPlus(type);
       registerNaBottomNavigationBarPlus(type);
       registerNaButtonPlus(type);
